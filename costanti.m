@@ -1,5 +1,5 @@
 LimitiManipolatore;
-N=10;
+N=3450;
 limInf = ones(18,N);
 limSup = ones(18,N);
 

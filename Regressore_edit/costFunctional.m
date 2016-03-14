@@ -1,4 +1,4 @@
-function [ cost ] = costFunctional(qDH, dqDH, ddqDH, lam1, lam2)
+function  cost = costFunctional(qDH, dqDH, ddqDH, lam1, lam2)
 %Rappresentazione della funzione di costo
 %   Il funzionale di costo che si vuole minimizzare è nella forma:
 
@@ -22,7 +22,7 @@ function [ cost ] = costFunctional(qDH, dqDH, ddqDH, lam1, lam2)
 %Scegliamo N di conseguenza. 
 % N = 10.
 
-N = 3450;
+N = 50;
 WN = ones(N*6,52);
 
 for i = 1:N
@@ -33,8 +33,11 @@ end
 
  
  s = svd(WN);
+ 
+ 
  cost = lam1*max(s)/min(s) + lam2/min(s);
 
-
 end
+
+ 
 

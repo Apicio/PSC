@@ -1,5 +1,5 @@
 LimitiManipolatore;
-N=3450;
+N=50;
 limInf = ones(18,N);
 limSup = ones(18,N);
 
@@ -14,6 +14,6 @@ end
 x0 = ones(18,N);
 for i=1:N
     x0(1:6,i) = 0.5*(limiti_giunto_sup + limiti_giunto_inf)';
-    x0(7:12,i) = ones(6,1);
-    x0(13:18,i) = ones(6,1);
+    x0(7:12,i) = zeros(6,1);
+    x0(13:18,i) = zeros(6,1);
 end

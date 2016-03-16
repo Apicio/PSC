@@ -37,11 +37,5 @@ p = A.Ab0e(1:3, end);
 p = p./1000;
 % Calcoliamo gli angoli di Eulero tramite apposita funzione, passiamo str che assumerà valore 'ZXZ' oppure 'RPY' a seconda dei casi.
 phi = mytform2eul(A.Ab0e,str);
-if (strcmp(str,'ZYZ') ~= 0) && (abs(phi(2)) == 0 || abs(phi(2)) == pi)  
-    disp('Warning: The resulting ZYZ angles are singular');
-end
-if (strcmp(str,'ZYX') ~= 0) && (abs(phi(2)) == pi/2 || abs(phi(2)) == (3/2)*pi)  
-    disp('Warning: The resulting ZYX angles are singular');
-end
 end
 

@@ -21,11 +21,14 @@ InitConnectionWithSimulator();%initialize the communication with the Simulator
 traj = genTraj(min3, [1:1:50], 6, 50, [0:2:98], 10);
 points = [];
 for i=1:size(traj,2)
-    pause(0.1);
+    %pause(0.1);
     JOINT = [0 0 traj(1,i) traj(2,i) traj(3,i) traj(4,i) traj(5,i) traj(6,i)];
 	SendPoseToVRep(JOINT);
-    [p, phi, R, A] = cindir(JOINT, 'ZYZ');
-    if(p(3) < 300)
+end
+for j=1:size(min3,2)
+    [p, phi, R, A] = cindir([0,0,min3(1:6,j)'], 'ZYZ');
+    p(3)
+    if(p(3) < 0.300)
         points = [points, i];
     end
 end

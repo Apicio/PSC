@@ -1,5 +1,4 @@
-function WN = computeW(qDH, dqDH, ddqDH)
-N = 50;
+function WN = computeW(qDH, dqDH, ddqDH, N)
 WN = ones(N*6,52);
 
 for i = 1:N

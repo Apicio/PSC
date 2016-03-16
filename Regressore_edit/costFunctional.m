@@ -24,16 +24,13 @@ function  cost = costFunctional(qDH, dqDH, ddqDH, lam1, lam2)
 
 N = 50;
 WN = Regressore(qDH(:,1),dqDH(:,1),ddqDH(:,1));
-parfor i = 2:N
- %  start = (i-1)*6+1;
- %  stop = i*6;
-  temp = Regressore(qDH(:,i),dqDH(:,i),ddqDH(:,i));
-  WN = [WN; temp];
+parfor i = 1:N
+   WN = [WN; Regressore(qDH(:,i),dqDH(:,i),ddqDH(:,i))];
 end 
 
- 
-s = svd(WN);
- 
+ disp('qua')
+ s = svd(WN);
+
  
  cost = lam1*max(s)/min(s) + lam2/min(s);
 

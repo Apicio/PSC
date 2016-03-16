@@ -6,7 +6,7 @@ costanti;
 load('x0_778.mat');
 lam1=1; lam2=1;
 
-cost = @(input)costFunctional(input(1:6,1:N), input(7:12,1:N), input(13:18,1:N),lam1,lam2);
+cost = @(input)costFunctional(input(1:6,1:N), input(7:12,1:N), input(13:18,1:N),lam1,lam2, N);
 options = optimset('Display', 'iter', 'MaxFunEvals', 700000,'MaxIter',1000, 'Algorithm', 'sqp','UseParallel',true, 'ObjectiveLimit', 10, 'TolX', 1*10^-4);
 %min = fminsearch(cost, x0, options)
 

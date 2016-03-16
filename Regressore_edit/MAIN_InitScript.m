@@ -17,11 +17,22 @@ savepath;
 InitConnectionWithSimulator();%initialize the communication with the Simulator
 %MotorParametersBushelessLafert(); %load in workspace the parameters of the motors
 
-% load('min_fmincon_21.77.mat');
-traj = genTraj(min3, [1:1:50], 6, 50, [0:2:98], 10);
+load('min_limitiStringentiJ23.mat');
+points = [];
+for j=1:size(min3,2)
+    [p, phi, R, A] = cindir([0,0,min3(1:6,j)'], 'ZYZ');
+    points = [points, p];
+end
+Ix = find(points(1,:)>300);
+Iz = find(points(3,:)>300);
+I = intersect(Ix,Iz);
+minP = min3(:,I);
+% minN = [min3(:,3:6), min3(:,9:12), min3(:,14:15), min3(:,17:18), min3(:,20:33), min3(:,38:42), min3(:,44:49)];
+minE = 
+[times, srt] = minPlot(minN);
+traj = genTraj(minN, 1:1:size(minN,2), 6, size(minN,2), times, 1000);
 points = [];
 for i=1:size(traj,2)
-    %pause(0.1);
     JOINT = [0 0 traj(1,i) traj(2,i) traj(3,i) traj(4,i) traj(5,i) traj(6,i)];
 	SendPoseToVRep(JOINT);
 end
@@ -29,7 +40,7 @@ for j=1:size(min3,2)
     [p, phi, R, A] = cindir([0,0,min3(1:6,j)'], 'ZYZ');
     p(3)
     if(p(3) < 0.300)
-        points = [points, i];
+        points = [points, j];
     end
 end
 %ESEMPIO DI MOVIMENTAZIONE DEL ROBOT

@@ -46,12 +46,15 @@ for i=1:size(traj,2)
 	SendPoseToVRep(JOINT);
     disp(i);
 end
-for i=1:size(min3,2)
-    JOINT = [0 0 min3(1,i) min3(2,i) min3(3,i) min3(4,i) min3(5,i) min3(6,i)];
-	SendPoseToVRep(JOINT);
-    disp(i);
-    pause;
-end
+fileID = fopen('traj.txt','w');
+fprintf(fileID,'%f %f %f %f %f %f\n',traj);
+checkAlgorithm(min3,size(min3,2),1,1)
+% for i=1:size(min3,2)
+%     JOINT = [0 0 min3(1,i) min3(2,i) min3(3,i) min3(4,i) min3(5,i) min3(6,i)];
+% 	SendPoseToVRep(JOINT);
+%     disp(i);
+%     pause;
+% end
 
 %ESEMPIO DI MOVIMENTAZIONE DEL ROBOT
 %JOINT = [1 1 0 -pi/2 pi/4 0 0 0]; %(m (x), m(y), rad(joint1), rad(joint2), rad(joint3), rad(joint4), rad(joint5), rad(joint6))

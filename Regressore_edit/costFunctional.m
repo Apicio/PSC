@@ -22,7 +22,7 @@ function  cost = costFunctional(qDH, dqDH, ddqDH, lam1, lam2, N)
 %Scegliamo N di conseguenza. 
 % N = 10.
 WN = Regressore(qDH(:,1),dqDH(:,1),ddqDH(:,1));
-parfor i = 1:N
+for i = 1:N
    WN = [WN; Regressore(qDH(:,i),dqDH(:,i),ddqDH(:,i))];
 end 
 

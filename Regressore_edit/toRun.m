@@ -3,7 +3,7 @@ clc; clear all; close all;
 % Dichiarazione funzione di costo da minimizzare. 
 % Input rappresenta il parametro rispetto a cui minimizzare
 costanti;
-load('x0_778.mat');
+load('x0_826.mat');
 lam1=1; lam2=1;
 
 cost = @(input)costFunctional(input(1:6,1:N), input(7:12,1:N), input(13:18,1:N),lam1,lam2, N);

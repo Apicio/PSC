@@ -1,4 +1,4 @@
-function  cost = costFunctional(qDH, dqDH, ddqDH, lam1, lam2, N)
+function  cost = costFunctional(qDH, dqDH, ddqDH, N)
 %Rappresentazione della funzione di costo
 %   Il funzionale di costo che si vuole minimizzare è nella forma:
 
@@ -21,17 +21,15 @@ function  cost = costFunctional(qDH, dqDH, ddqDH, lam1, lam2, N)
 %          erano ovviamente 13*6, ovvero 13 parametri per ogni var di giunto.
 %Scegliamo N di conseguenza. 
 % N = 10.
-WN = Regressore(qDH(:,1),dqDH(:,1),ddqDH(:,1));
+
+WN = zeros(6*N,52);
 for i = 1:N
-   WN = [WN; Regressore(qDH(:,i),dqDH(:,i),ddqDH(:,i))];
+   start = (i-1)*6+1;
+   stop = i*6;
+   WN(start:stop,:) = Regressore(qDH(:,i),dqDH(:,i),ddqDH(:,i));
 end 
-
- disp('qua')
  s = svd(WN);
-
- 
- cost = lam1*max(s)/min(s) + lam2/min(s);
-
+ cost = max(s)/min(s) + 1/min(s);
 end
 
  

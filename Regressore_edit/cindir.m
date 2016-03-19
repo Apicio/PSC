@@ -1,4 +1,4 @@
-function [p, phi, R, A] = cindir(q, str)
+function [p, R, A] = cindir(q, str)
 q = [q(1:2).*1000, q(3:8)];
 % Definiamo la Matrice di DH
 DH = [      %alpha      teta    d           a;
@@ -35,7 +35,5 @@ A.Ab0e = A.Ab0b1*A.Ab1b2*A.Ab20*A.A01*A.A12*A.A23*A.A34*A.A45*A.A56*A.A6e;
 R = A.Ab0e(1:3, 1:3);
 p = A.Ab0e(1:3, end);
 p = p./1000;
-% Calcoliamo gli angoli di Eulero tramite apposita funzione, passiamo str che assumerà valore 'ZXZ' oppure 'RPY' a seconda dei casi.
-phi = mytform2eul(A.Ab0e,str);
 end
 

@@ -16,9 +16,17 @@ if(~exist('client') || client ~=0)
     %MotorParametersBushelessLafert(); %load in workspace the parameters of the motors
 end
 %% Carico WorkSpace
-% N = 75;
-% x0 = 
-% min_value = findMin(x0, N);
+% FILE: Montecarlo.m
+% Condizione iniziale determinata generando casualmente delle matrici di
+% dimensione (3*n,N), valudando la funzione di costo, i limiti del
+% manipolatore e scegliendo a valle di un certo numero di operazioni la x0
+% che presentava il costo minimo. La funzione di costo è calcolata tramite:
+% > costFunctional(min_v(1:6,1:N), min_v(7:12,1:N), min_v(13:18,1:N), N);
+% A partire dal x0 trovato è stata richiamata la funzione di minimizzazione
+% > fmincon(cost, input,[],[],[],[],limInf,limSup,[],options);
+% imponendo i limiti di giunto e ulteriori parametri definiti in options.
+% Di seguito viene ricaricato il workspace relativo al risultato delle
+% operazioni precedentemente descritte. 
 load('costFun38.mat')
 %% Check Positions
 for i=1:size(min_value,2)
@@ -41,8 +49,9 @@ min_value(:,54) = [];
 min_value = [p1, p2, p3, min_value];
 %% Generazione Traiettoria
 F = 1000;
-[times, srt] = minPlot(min_value, F);
-traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), times, F);
+tstart = 0; tend = 1.2550;
+[times, srt] = minPlot(min_value, F, tstart, tend);
+traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), tstart, tend, F);
 %% Invio traiettoria a V-REP
 for i=1:size(traj,2)
     JOINT = [0 0 traj(1,i) traj(2,i) traj(3,i) traj(4,i) traj(5,i) traj(6,i)];
@@ -50,21 +59,24 @@ for i=1:size(traj,2)
 end
 %% Check Traiettoria
 checkAlgorithm(min_value,size(min_value,2))
-checkLimits(traj, 1/F)
+if (checkLimits(traj, 1/F) == 1) 
+    disp('Check Limiti di Giunto Superato');
+end
 %% Salvataggio Traiettoria
 fileID = fopen('traj.txt','w');
 fprintf(fileID,'%f %f %f %f %f %f\n',traj);
+disp('Traiettoria salvata in traj.txt');
 
-flag = 1; i=1;
-while(flag == 1)
-tstart = 0; tend = size(min_value,2)*i;
-traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), tstart, tend, F);
-%checkLimits(traj, 1/F)
-    if(checkLimits(traj, 1/F) == 1) %Se i limiti sono rispettati, esci.
-        flag =-1;
-        disp('finito');
-    end
-    i=i-1*10^(-4)
-end
+% i = 1.2560;
+% t = [];
+% while(i>0)
+% traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), 0, 1.1, F);
+%     check = checkLimits(traj, 1/F)
+%     if(check(1) == 1) %Se i limiti sono rispettati, esci.
+%         t = [t,i];
+%         i
+%     end
+%     i=i-1*10^(-3);
+% end
 
 

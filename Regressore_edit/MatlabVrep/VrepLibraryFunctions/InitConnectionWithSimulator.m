@@ -21,7 +21,7 @@ pause(0.2);
 %%%%%%%% LATER
 
 %HANDLES TO REVOLUTE JOINTS OF THE MANIPULATOR
-for i=1:6
+for i=7:12
     [err, Robot.Manipulator.RevJointHandle(i)] = vrep.simxGetObjectHandle(client, ['Joint', num2str(i)],  vrep.simx_opmode_oneshot_wait);
    if(err)
        error(['Err reading pointer to revolute joint of the manipulator. Joint: ', num2str(i), '. Check that Vrep is active and the connection established']);
@@ -30,15 +30,15 @@ end
 
 
 %HANDLES TO THE PRISMATIC JOINT OF THE BASE
-[err, Robot.MobileBase.PrismJointXHandle] = vrep.simxGetObjectHandle(client, ['JointXBase'],  vrep.simx_opmode_oneshot_wait);
-   if(err)
-       error(['Err reading pointer to primsatic joint X of the base']);
-   end
+% [err, Robot.MobileBase.PrismJointXHandle] = vrep.simxGetObjectHandle(client, ['JointXBase'],  vrep.simx_opmode_oneshot_wait);
+   % if(err)
+       % error(['Err reading pointer to primsatic joint X of the base']);
+   % end
 
-[err, Robot.MobileBase.PrismJointYHandle] = vrep.simxGetObjectHandle(client, ['JointYBase'],  vrep.simx_opmode_oneshot_wait);
-    if(err)
-       error(['Err reading pointer to Primsatic joint Y of the base']);
-   end
+% [err, Robot.MobileBase.PrismJointYHandle] = vrep.simxGetObjectHandle(client, ['JointYBase'],  vrep.simx_opmode_oneshot_wait);
+    % if(err)
+       % error(['Err reading pointer to Primsatic joint Y of the base']);
+   % end
 
 %Start the simulator
  err=vrep.simxStartSimulation(client, vrep.simx_opmode_oneshot_wait);

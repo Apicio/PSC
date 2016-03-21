@@ -1,4 +1,4 @@
-function toRet = checkLimits(traj, T)
+function [toRet, dtraj, ddtraj ] = checkLimits(traj, T)
 %CHECKLIMITS Summary of this function goes here
 %   Detailed explanation goes here
 %%%%%%%%%%%%%%%%%%%LIMITI FISICI DEL MANIPOLATORE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

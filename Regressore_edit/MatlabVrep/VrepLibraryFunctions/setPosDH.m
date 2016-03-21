@@ -12,10 +12,14 @@ function [err]=setPosDH(vrep, clientID, Robot, JointDH, mode)
 
 
 
-err(1) = vrep.simxSetJointPosition(clientID, Robot.MobileBase.PrismJointXHandle, JointDH(1), mode);
-err(2) = vrep.simxSetJointPosition(clientID, Robot.MobileBase.PrismJointYHandle, JointDH(2), mode);
+% err(1) = vrep.simxSetJointPosition(clientID, Robot.MobileBase.PrismJointXHandle, JointDH(1), mode);
+% err(2) = vrep.simxSetJointPosition(clientID, Robot.MobileBase.PrismJointYHandle, JointDH(2), mode);
 
 
-for i=1:6
-    err(i+2) = vrep.simxSetJointPosition(clientID, Robot.Manipulator.RevJointHandle(i), JointDH(i+2), mode);
+% for i=1:6
+    % err(i+2) = vrep.simxSetJointPosition(clientID, Robot.Manipulator.RevJointHandle(i), JointDH(i+2), mode);
+% end
+
+for i=7:12
+    err(i-6) = vrep.simxSetJointPosition(clientID, Robot.Manipulator.RevJointHandle(i), JointDH(i-6), mode);
 end

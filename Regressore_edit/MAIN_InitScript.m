@@ -29,17 +29,31 @@ end
 % operazioni precedentemente descritte. 
 load('costFun38.mat')
 %% Check Positions
+min_value(1,:) = min_value(1,:)+deg2rad(20);
+min_value(2,41) = min_value(2,41)-deg2rad(20);
+I = [4, 12, 13, 15, 28, 30, 31, 57, 63, 66, 68]; % Punti da rimuovere.
+%8(2) 25(3) 34(2) 41(2) 44(3)                                               % 10 29 40 41 42 48
+%41 48 52
+%30 68 max 32 47
+min_value(:,I) = [];
+min_value(2,8) = min_value(2,8)-deg2rad(20);
+min_value(3,25) = min_value(3,25)+deg2rad(40);
+min_value(2,34) = min_value(2,34)-deg2rad(40);
+min_value(3,51) = min_value(3,51)+deg2rad(20);
+min_value(2,41) = min_value(2,41)-deg2rad(20);
+min_value(3,44) = min_value(3,44)+deg2rad(20);
+min_value(3,49) = min_value(3,49)-deg2rad(20);
+
 for i=1:size(min_value,2)
-    JOINT = [0 0 min_value(1,i) min_value(2,i) min_value(3,i) min_value(4,i) min_value(5,i) min_value(6,i)];
+    JOINT = [min_value(1,i) min_value(2,i) min_value(3,i) min_value(4,i) min_value(5,i) min_value(6,i)];
 	SendPoseToVRep(JOINT);
     disp(i);
     pause;
 end % Step by Step si controllano i punti da interpolare in Matlab per 
     % verificare la presenza di evntuali punti Critici, nel rispetto delle 
     % dimensioni della scena.
-I = [4, 12, 13, 15, 28, 30, 31, 57, 63, 66, 68]; % Punti da rimuovere.
-                                                 % 10 29 40 41 42 48
-min_value(:,I) = [];
+
+
 p1 = min_value(:,33);
 p2 = min_value(:,40);
 p3 = min_value(:,54);
@@ -48,26 +62,31 @@ min_value(:,40) = [];
 min_value(:,54) = [];
 min_value = [p1, p2, p3, min_value];
 %% Generazione Traiettoria
-F = 1000;
+F = 2000;
 tstart = 0; tend = 1.2550;
-[times, srt] = minPlot(min_value, F, tstart, tend);
+%[times, srt] = minPlot(min_value, F, tstart, tend);
 traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), tstart, tend, F);
 %% Invio traiettoria a V-REP
 for i=1:size(traj,2)
-    JOINT = [0 0 traj(1,i) traj(2,i) traj(3,i) traj(4,i) traj(5,i) traj(6,i)];
+    JOINT = [traj(1,i) traj(2,i) traj(3,i) traj(4,i) traj(5,i) traj(6,i)];
 	SendPoseToVRep(JOINT);
 end
 %% Check Traiettoria
 checkAlgorithm(min_value,size(min_value,2))
-if (checkLimits(traj, 1/F) == 1) 
+[toRet, dtraj, ddtraj] = checkLimits(traj, 1/F);
+
+if (toRet == 1) 
     disp('Check Limiti di Giunto Superato');
 end
 %% Salvataggio Traiettoria
 fileID = fopen('traj.txt','w');
-fprintf(fileID,'%f %f %f %f %f %f\n',traj);
+ditance_from_wall = 30;
+traj(7,:) = ditance_from_wall;
+fprintf(fileID,'%f %f %f %f %f %f %d\n',traj);
 disp('Traiettoria salvata in traj.txt');
 
-% i = 1.2560;
+
+% i = 1.3;
 % t = [];
 % while(i>0)
 % traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), 0, 1.1, F);

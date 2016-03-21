@@ -7,6 +7,6 @@ global vrep client Robot Mode
 
 
 JointDH = in(1:end);
-err(1:10) = 0;
+err(1:6) = 0;
 
 err = setPosDH(vrep, client, Robot, JointDH, Mode);

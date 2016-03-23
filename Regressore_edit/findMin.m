@@ -20,6 +20,6 @@ function min_value = findMin(N)
     end
 
     options = optimset('Display', 'iter', 'MaxFunEvals', 700000,'MaxIter',1000, 'Algorithm', 'sqp','UseParallel',true, 'ObjectiveLimit', 10, 'TolX', 1*10^-4);
-    min_value = fmincon(cost, hol,[],[],[],[],limInf,limSup,[],options)
+    min_value = fmincon(cost, min3,[],[],[],[],limInf,limSup,[],options)
 end
 

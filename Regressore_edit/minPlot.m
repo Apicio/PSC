@@ -2,7 +2,7 @@ function [times, srt] = minPlot(min, F, tstart, tend)
 	% Utilizzata per la visualizzazione dei punti da interpolare con relativa interpolazione, restituisce un sorting e gli istanti temporali.
 	% Interpolazione effettuata nello spazio operativo, quindi abbiamo utilizzato la cindir.
 
-    times = linspace(tstart,tend,size(min,2));
+    times = tstart:tend:size(min,2)*tend-1;
     srt = 1:1:size(min,2);
    
     traj = genTraj(min, srt, 6, size(min,2), tstart, tend, F);

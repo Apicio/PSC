@@ -30,6 +30,7 @@ end
 load('costFun38.mat')
 %% Check Positions
 min_value(1,:) = min_value(1,:)+deg2rad(20);
+min_value(2,:) = min_value(2,:)-deg2rad(30);
 min_value(2,41) = min_value(2,41)-deg2rad(20);
 I = [4, 12, 13, 15, 28, 30, 31, 57, 63, 66, 68]; % Punti da rimuovere.
 %8(2) 25(3) 34(2) 41(2) 44(3)                                               % 10 29 40 41 42 48
@@ -53,16 +54,17 @@ end % Step by Step si controllano i punti da interpolare in Matlab per
     % verificare la presenza di evntuali punti Critici, nel rispetto delle 
     % dimensioni della scena.
 
-
 p1 = min_value(:,33);
 p2 = min_value(:,40);
 p3 = min_value(:,54);
 min_value(:,33) = [];
 min_value(:,40) = [];
 min_value(:,54) = [];
-min_value = [p1, p2, p3, min_value];
+p0 = [p1(1:6); zeros(12,1)];
+pend = [min_value(1:6,end); zeros(12,1)];
+min_value = [p0, p1, p2, p3, min_value, pend];
 %% Generazione Traiettoria
-F = 2000;
+F = 1000;
 tstart = 0; tend = 1.2550;
 %[times, srt] = minPlot(min_value, F, tstart, tend);
 traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), tstart, tend, F);
@@ -74,15 +76,15 @@ end
 %% Check Traiettoria
 checkAlgorithm(min_value,size(min_value,2))
 [toRet, dtraj, ddtraj] = checkLimits(traj, 1/F);
-
+toRet
 if (toRet == 1) 
     disp('Check Limiti di Giunto Superato');
 end
 %% Salvataggio Traiettoria
 fileID = fopen('traj.txt','w');
-ditance_from_wall = 30;
-traj(7,:) = ditance_from_wall;
-fprintf(fileID,'%f %f %f %f %f %f %d\n',traj);
+distance_from_wall = 0.50;
+traj(7,:) = distance_from_wall;
+fprintf(fileID,'%f %f %f %f %f %f %f\n',traj);
 disp('Traiettoria salvata in traj.txt');
 
 

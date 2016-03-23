@@ -26,7 +26,7 @@ WN = zeros(6*N,52);
 for i = 1:N
    start = (i-1)*6+1;
    stop = i*6;
-   WN(start:stop,:) = Regressore(qDH(:,i),dqDH(:,i),ddqDH(:,i));
+   WN(start:stop,:) = Regressore_mex(qDH(:,i),dqDH(:,i),ddqDH(:,i));
 end 
  s = svd(WN);
  cost = max(s)/min(s) + 1/min(s);

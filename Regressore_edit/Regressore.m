@@ -125,7 +125,7 @@ k65 = 0.020000000000000;
 % Velocit� dei motori
   dqm = (Kr*dq) * (pi/180); % in convenzione COMAU in rad/sec
 
-  Phi = zeros(6,40);
+  Phi = zeros(6,52);
 
 % Regressore ridotto  in simbolico del robot 26-Jan-2005       
   % Coppia: 1
@@ -518,7 +518,8 @@ k65 = 0.020000000000000;
     Phi(6,38) = 0;
     Phi(6,39) = 0;
     Phi(6,40) = w6y*w6x;
-      [n,k] = size(Phi);
+     % [n,k] = size(Phi);
+      n=6; k=40;
     soglia = 0.5;
     for i = 1 : n
       % attrito statico

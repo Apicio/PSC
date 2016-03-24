@@ -35,11 +35,11 @@ qSim = IdMatrix(cutoff:end,23:29); % Matrice Q, variabili di giunto LETTE dal co
 ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
 %% Denoising dei segnali misurati
 for k=1:size(ISim,2)
-    dec = mdwtdec('c',ISim(:,k),4,'db20');
+    dec = mdwtdec('c',ISim(:,k),2,'db1');
     [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
     ISim(:,k) = XD;
     
-    dec = mdwtdec('c',qSim(:,k),4,'db20');
+    dec = mdwtdec('c',qSim(:,k),2,'db1');
     [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
     qSim(:,k) = XD;
 end

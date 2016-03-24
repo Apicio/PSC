@@ -56,6 +56,12 @@ figure; plot(qInv); title('qInv');
 figure; plot(Traj); title('Traj');
 figure; plot(qSim); title('qSim');
 figure; plot(ISim); title('ISim');
+%% Compute Derivate
+Fs = 500;
+dqSim = gradi(qSim)*Fs;
+ddqSim = diff(dqSim)*Fs;
+
+
 
 
 

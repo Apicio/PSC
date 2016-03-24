@@ -34,14 +34,18 @@ qInv = IdMatrix(cutoff:end,2:8);   % Matrice Q, variabili di giunto INVIATE al c
 qSim = IdMatrix(cutoff:end,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
 ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
 %% Denoising dei segnali misurati
+ISimg = zeros(size(ISim));
 for k=1:size(ISim,2)
-    dec = mdwtdec('c',ISim(:,k),2,'db1');
-    [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
-    ISim(:,k) = XD;
-    
-    dec = mdwtdec('c',qSim(:,k),2,'db1');
-    [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
-    qSim(:,k) = XD;
+      [up, down] = envelope(ISim(:,k),16,'peak');
+      ISim(:,k) = (up+down)/2;
+      %ISim(:,k) = sgolayfilt(ISim(:,k),1,17);
+%     dec = mdwtdec('c',ISim(:,k),2,'db1');
+%     [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
+%     ISim(:,k) = XD;
+%     
+%     dec = mdwtdec('c',qSim(:,k),2,'db1');
+%     [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
+%     qSim(:,k) = XD;
 end
 
 %% Troviamo i punti della traiettoria
@@ -81,7 +85,7 @@ dqSim_ts = dqSim(r(2:end-1),:);
 ddqSim_ts = ddqSim(r(2:end-1),:);
 I_ts = ISim(r(2:end-1),:); 
 %% Generazione VALIDATION SET
-vs_dim = 1000;
+vs_dim = 100;
 r = randi([r(2),r(end-1)],vs_dim,1); N_vs = size(r,1);
 qSim_vs = qSim(r,:);
 dqSim_vs = dqSim(r,:);
@@ -105,7 +109,8 @@ H=[ -1     0     0     0     0     0
 % I_ts = I_ts';
 % tauDH_ts = repmat(A,1,64)*I_ts(:)';
 PI_ts = pinv(W_ts)*tauDH_ts;
-
+tau = W_ts*PI_ts;
+errrrrr = mean(abs(tau-tauDH_ts))
 %% Validazione Algoritmo di calcolo dei Parametri Dinamici
 W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', N_vs);
 tauDH_vs = [] ;
@@ -115,17 +120,4 @@ for i=1:size(I_vs,1)
 end
 
 tauDH_cap = W_vs*PI_ts;
-err = mean(abs(tauDH_cap-tauDH_vs))
-
-
-
-
-
-
-
-
-
-
-
-
-
+err =abs(tauDH_cap-tauDH_vs);

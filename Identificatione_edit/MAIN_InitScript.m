@@ -22,25 +22,32 @@ load('IdMatrix.mat');
 load('min_value.mat');
 distance_from_wall = 0.50;
 %% 
-t = IdMatrix(:,1);       % Vettore dei tempi
-qInv = IdMatrix(:,2:8); % Matrice Q, variabili di giunto INVIATE al controllore
-qSim = IdMatrix(:,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
-ISim = IdMatrix(:,37:43); % Matrice delle Correnti lette dai sensori
+cutoff = 42000;
+t = IdMatrix(cutoff:end,1);        % Vettore dei tempi
+qInv = IdMatrix(cutoff:end,2:8);   % Matrice Q, variabili di giunto INVIATE al controllore
+qSim = IdMatrix(cutoff:end,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
+ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
 %% Troviamo i punti della traiettoria
-[~,indx] = ismember(Traj(1,:), qInv, 'rows');
-E = 10^2;
-tmp = round(qInv.*E)./E;
-for i=2:size(min_value,2)
-    [~,tmp_indx] = ismember(round([min_value(1:6,i)', distance_from_wall].*E)./E , tmp, 'rows');
-    indx = [indx, tmp_indx];
+figure; plot(Traj);
+cycle = size(qInv,1) - size(Traj,1);
+no = [];
+% Et = sum(Traj.^2);
+% for i=1:cycle
+%     Ea = sum(qInv(i:size(Traj,1)+i-1,:).^2);
+%     no = [no, mean(abs(Ea-Et))];
+% end
+for i=1:cycle
+    tmp = qInv(i:size(Traj,1)+i-1,:);
+    diff = abs(tmp(:) - Traj(:));
+    no = [no, mean(diff)];
 end
-%% Check Errors
-v = zeros(1,size(min_value,2));
-for i=1:size(min_value,2)
-    v(i) = norm(min_value(1:6,i) - qInv(indx(i),1:6)');
-end
-mean(v)
-
+i = find(no == min(no));
+figure; plot(qInv(i:size(Traj,1)+i-1,:));
+%% Undirted Data
+t = IdMatrix(i:size(Traj,1)+i-1,1);        % Vettore dei tempi
+qInv = IdMatrix(i:size(Traj,1)+i-1,2:8);   % Matrice Q, variabili di giunto INVIATE al controllore
+qSim = IdMatrix(i:size(Traj,1)+i-1,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
+ISim = IdMatrix(i:size(Traj,1)+i-1,37:43); % Matrice delle Correnti lette dai sensori
 
 
 

@@ -16,6 +16,9 @@ if(~disable && (exist('client') || client ~=0))
     InitConnectionWithSimulator();%initialize the communication with the Simulator
     %MotorParametersBushelessLafert(); %load in workspace the parameters of the motors
 end
+if(disable)
+    clear all; clc; close all;
+end
 %% Carico WorkSpace
 load('traj.mat');
 load('IdMatrix.mat');
@@ -28,7 +31,6 @@ qInv = IdMatrix(cutoff:end,2:8);   % Matrice Q, variabili di giunto INVIATE al c
 qSim = IdMatrix(cutoff:end,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
 ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
 %% Troviamo i punti della traiettoria
-figure; plot(Traj);
 cycle = size(qInv,1) - size(Traj,1);
 no = [];
 % Et = sum(Traj.^2);
@@ -42,12 +44,13 @@ for i=1:cycle
     no = [no, mean(diff)];
 end
 i = find(no == min(no));
-figure; plot(qInv(i:size(Traj,1)+i-1,:));
 %% Undirted Data
-t = IdMatrix(i:size(Traj,1)+i-1,1);        % Vettore dei tempi
-qInv = IdMatrix(i:size(Traj,1)+i-1,2:8);   % Matrice Q, variabili di giunto INVIATE al controllore
-qSim = IdMatrix(i:size(Traj,1)+i-1,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
-ISim = IdMatrix(i:size(Traj,1)+i-1,37:43); % Matrice delle Correnti lette dai sensori
+t = t(i:size(Traj,1)+i-1);           % Vettore dei tempi
+qInv = qInv(i:size(Traj,1)+i-1,:);   % Matrice Q, variabili di giunto INVIATE al controllore
+qSim = qSim(i:size(Traj,1)+i-1,:); % Matrice Q, variabili di giunto LETTE dal controllore
+ISim = ISim(i:size(Traj,1)+i-1,:); % Matrice delle Correnti lette dai sensori
+figure; plot(qInv);
+figure; plot(Traj);
 
 
 

@@ -111,25 +111,25 @@ SIX_INIT_XX001;
 %          i
 % vettori r     tra l'origine della terna i-1 e origine della terna i espressi nella terna i [m]
 %          i-1,i
-  [a,d,alpha] = dh_table;
-
-  % r01 = [a(1), -d(1), 0]';
-    r01x =  a(1); 
-    r01y = -d(1);
-
-  % r12 = [a(2), 0, 0]';
-    r12x =  a(2);
-
-  % r23 = [a(3), 0, 0]';
-    r23x =  a(3);
-
-  % r34 = [0, d(4), 0]';
-    r34y =  d(4);
-
-  % r45 = [0, 0, 0]';
-
-  % r56 = [0, 0, d(6)]';
-    r56z =  d(6);
+%   [a,d,alpha] = dh_table;
+% 
+%   % r01 = [a(1), -d(1), 0]';
+%     r01x =  a(1); 
+%     r01y = -d(1);
+% 
+%   % r12 = [a(2), 0, 0]';
+%     r12x =  a(2);
+% 
+%   % r23 = [a(3), 0, 0]';
+%     r23x =  a(3);
+% 
+%   % r34 = [0, d(4), 0]';
+%     r34y =  d(4);
+% 
+%   % r45 = [0, 0, 0]';
+% 
+%   % r56 = [0, 0, d(6)]';
+%     r56z =  d(6);
 
 % accelerazione di gravità (il segno di g è positivo dal basso verso l'alto nel sistema inerziale)
   g_abs = MOD_ACC_DEC.TAB(39);

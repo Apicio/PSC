@@ -33,21 +33,6 @@ t = IdMatrix(cutoff:end,1);        % Vettore dei tempi
 qInv = IdMatrix(cutoff:end,2:8);   % Matrice Q, variabili di giunto INVIATE al controllore
 qSim = IdMatrix(cutoff:end,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
 ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
-%% Denoising dei segnali misurati
-ISimg = zeros(size(ISim));
-for k=1:size(ISim,2)
-      [up, down] = envelope(ISim(:,k),16,'peak');
-      ISim(:,k) = (up+down)/2;
-      %ISim(:,k) = sgolayfilt(ISim(:,k),1,17);
-%     dec = mdwtdec('c',ISim(:,k),2,'db1');
-%     [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
-%     ISim(:,k) = XD;
-%     
-%     dec = mdwtdec('c',qSim(:,k),2,'db1');
-%     [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
-%     qSim(:,k) = XD;
-end
-
 %% Troviamo i punti della traiettoria
 cycle = size(qInv,1) - size(Traj,1);
 no = zeros(1,cycle);
@@ -69,6 +54,27 @@ t = t(i:size(Traj,1)+i-1);                   % Vettore dei tempi
 qInv = qInv(i:size(Traj,1)+i-1,1:6);           % Matrice Q, variabili di giunto INVIATE al controllore
 qSim = qSim((i+j):size(Traj,1)+(i+j)-1,1:6);   % Matrice Q, variabili di giunto LETTE dal controllore
 ISim = ISim((i+j):size(Traj,1)+(i+j)-1,1:6);   % Matrice delle Correnti lette dai sensori
+%% Denoising dei segnali misurati
+oldISim = ISim;
+% for k=1:size(ISim,2)
+% %     dec = mdwtdec('c',ISim(:,k),2,'db1');
+% %     [signal,~,~] = mswden('den',dec,'sqtwolog','sln');
+%       ISim(:,k) = wavden(oldISim(:,k),'db1',10, F);
+% %      [up, down] = envelope(signal,32,'peak');
+% %      ISim(:,k) = (up+down)/2;
+% end
+% Hd = getFilter();
+% fvtool(Hd,'Fs',F)
+% for k=1:size(ISim,2)
+%       ISim(:,k) = filter(Hd,oldISim(:,k));
+% %     [up, down] = envelope(ISim(:,k),32,'peak');
+% %     ISim(:,k) = (up+down)/2;
+% end
+qSim = sgolayfilt(qSim,1,17);
+ISim = sgolayfilt(ISim,1,17);
+figure; plot(ISim);
+%% Show Results
+close all;
 figure; plot(qInv); title('qInv');
 figure; plot(Traj); title('Traj');
 figure; plot(qSim); title('qSim');
@@ -76,17 +82,27 @@ figure; plot(ISim); title('ISim');
 %% Compute derivate
 Fs = 500; %500 perché è stato considerato un intervallo tra i campioni ogni 0.2 invece di ogni 0.1 così com'era in fase
           % di definizione della traiettoria.
-dqSim = diff(qSim)*Fs;
-ddqSim = diff(dqSim)*Fs;
+fil = filterDiff();
+% 
+% dqSim = filter(fil,diff(qSim)*Fs);
+% ddqSim = filter(fil,diff(dqSim)*Fs);
+% figure; plot(dqSim); figure; plot(ddqSim);
+dqSim = robustDiff(qSim,1/Fs,17);
+ddqSim = robustDiff(dqSim,1/Fs,17);
+figure; plot(dqSim(20:end-20,:)); figure; plot(ddqSim(20:end-20,:));
 %% Generazione TRAINING SET
-r = 1:interval*F:size(qSim,1); N_ts = size(r,2)-2; %togliamo il punto iniziale e finale poiché fittizi.
-qSim_ts = qSim(r(2:end-1),:);
-dqSim_ts = dqSim(r(2:end-1),:);
-ddqSim_ts = ddqSim(r(2:end-1),:);
-I_ts = ISim(r(2:end-1),:); 
+set_dim = 10000;
+ts_dim = round(set_dim*0.8);
+r1 = 1:interval*F:size(qSim,1);  
+r2 = randi([r1(2),r1(end-1)],ts_dim-size(r1,2),1); 
+r = [r1(2:end-1),r2']; N_ts = size(r,2); %togliamo il punto iniziale e finale poiché fittizi.
+qSim_ts = qSim(r,:);
+dqSim_ts = dqSim(r,:);
+ddqSim_ts = ddqSim(r,:);
+I_ts = ISim(r,:); 
 %% Generazione VALIDATION SET
-vs_dim = 100;
-r = randi([r(2),r(end-1)],vs_dim,1); N_vs = size(r,1);
+vs_dim = round(set_dim*0.2);
+r = randi([r1(2),r1(end-1)],vs_dim,1); N_vs = size(r,1);
 qSim_vs = qSim(r,:);
 dqSim_vs = dqSim(r,:);
 ddqSim_vs = ddqSim(r,:);
@@ -110,7 +126,7 @@ H=[ -1     0     0     0     0     0
 % tauDH_ts = repmat(A,1,64)*I_ts(:)';
 PI_ts = pinv(W_ts)*tauDH_ts;
 tau = W_ts*PI_ts;
-errrrrr = mean(abs(tau-tauDH_ts))
+err = mean(abs(tau-tauDH_ts))
 %% Validazione Algoritmo di calcolo dei Parametri Dinamici
 W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', N_vs);
 tauDH_vs = [] ;
@@ -120,4 +136,4 @@ for i=1:size(I_vs,1)
 end
 
 tauDH_cap = W_vs*PI_ts;
-err =abs(tauDH_cap-tauDH_vs);
+err = mean(abs(tauDH_cap-tauDH_vs))

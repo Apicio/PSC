@@ -36,8 +36,10 @@ ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
 %% Denoising dei segnali misurati
 ISimg = zeros(size(ISim));
 for k=1:size(ISim,2)
-      [up, down] = envelope(ISim(:,k),16,'peak');
-      ISim(:,k) = (up+down)/2;
+%        [up, down] = envelope(ISim(:,k),16,'peak');
+%        ISim(:,k) = (up+down)/2;
+      ISim(:,k) = sgolayfilt(ISim(:,k),1,17);
+   
       %ISim(:,k) = sgolayfilt(ISim(:,k),1,17);
 %     dec = mdwtdec('c',ISim(:,k),2,'db1');
 %     [XD,~,~] = mswden('den',dec,'sqtwolog','sln');
@@ -120,4 +122,15 @@ for i=1:size(I_vs,1)
 end
 
 tauDH_cap = W_vs*PI_ts;
-err =abs(tauDH_cap-tauDH_vs);
+err = mean(abs(tauDH_cap-tauDH_vs));
+
+
+% delay = 150;
+% err1 =[]; err2 =[];
+% parfor i=1:150
+% [err_ts, err_vs] = findDelay(delay+i);
+% err(i) = [err_ts];
+% err2(i) = [err_vs];
+% s = [num2str(i),'Errore su TS',num2str(err_ts),'Errore su VS',num2str(err_vs)];
+
+%disp(s)

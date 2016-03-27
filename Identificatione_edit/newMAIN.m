@@ -95,7 +95,13 @@ tauDH_cap = W_vs*PI_TS;
 
 err = mean(abs(tauDH_cap-tauDH_vs))
 errOnJointsVS = computeErr(tauDH_cap, tauDH_vs,6)
-
-
+%% Plot delle coppie misurate e ricostruite
+figure; 
+subplot(321); plot(tauDH_vs(1:6:180)); hold on; plot(tauDH_cap(1:6:180),'-.'); title('Joint1'); ylabel('Nm');
+subplot(322); plot(tauDH_vs(2:6:180)); hold on; plot(tauDH_cap(2:6:180),'-.'); title('Joint2'); ylabel('Nm');
+subplot(323); plot(tauDH_vs(3:6:180)); hold on; plot(tauDH_cap(3:6:180),'-.'); title('Joint3'); ylabel('Nm');
+subplot(324); plot(tauDH_vs(4:6:180)); hold on; plot(tauDH_cap(4:6:180),'-.'); title('Joint4'); ylabel('Nm');
+subplot(325); plot(tauDH_vs(5:6:180)); hold on; plot(tauDH_cap(5:6:180),'-.'); title('Joint5'); ylabel('Nm');
+subplot(326); plot(tauDH_vs(6:6:180)); hold on; plot(tauDH_cap(6:6:180),'-.'); title('Joint6'); ylabel('Nm');
 
 

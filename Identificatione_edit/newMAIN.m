@@ -54,19 +54,22 @@ figure; plot(T,ISim); title('ISim');
 Fs = 500; %500 perché è stato considerato un intervallo tra i campioni ogni 0.2 invece di ogni 0.1 così com'era in fase
           % di definizione della traiettoria.
 dqSim = sgolayfilt(diff(qSim)*Fs,1,17);
-Hd = getFilter();
 ddqSim = sgolayfilt(diff(dqSim)*Fs,1,17);
 %figure; plot(T,dqSim(20:end-20,:)); figure; plot(T,ddqSim(20:end-20,:));
 %% Generazione TRAINING SET
-load('ROW_TS.mat');
+load('ROW_TS_20000.mat');
+%ROW = randi([I(2),I(end-1)],20000,1);
 qSim_TS = qSim(ROW,:);
 dqSim_TS = dqSim(ROW,:);
 ddqSim_TS = ddqSim(ROW,:);
 IISim_TS = ISim(ROW,:); 
 N_TS = size(ROW,1);
 %% Generazione VALIDATION SET
-vs_dim = 2000;
-r = randi([I(2),I(end-1)],vs_dim,1); N_vs = size(r,1);
+% vs_dim = 2000;
+% r = randi([I(2),I(end-1)],vs_dim,1); N_vs = size(r,1);
+r = 1:1:size(Traj,1)-2;
+[~,II] = ismember(r,ROW); % troviamo gli elementi che sono stati utilizzati per il TS.
+II(II==0) = []; r(II) = [];
 qSim_vs = qSim(r,:);
 dqSim_vs = dqSim(r,:);
 ddqSim_vs = ddqSim(r,:);
@@ -84,7 +87,8 @@ err = mean(abs(TAU-tauDH_TS(:)))
 errOnJointsTS = computeErr(TAU, tauDH_TS(:),6)
 
 %% Validazione Algoritmo di calcolo dei Parametri Dinamici
-W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', N_vs);
+%W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', N_vs);
+W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', size(r,2));
 tauDH_vs = [] ;
 for i=1:size(I_vs,1)
      toAdd = A*I_vs(i,:)';
@@ -95,13 +99,19 @@ tauDH_cap = W_vs*PI_TS;
 
 err = mean(abs(tauDH_cap-tauDH_vs))
 errOnJointsVS = computeErr(tauDH_cap, tauDH_vs,6)
-%% Plot delle coppie misurate e ricostruite
+%% Plot delle coppie misurate e ricostruite, solo Validation Set
 figure; 
-subplot(321); plot(tauDH_vs(1:6:180)); hold on; plot(tauDH_cap(1:6:180),'-.'); title('Joint1'); ylabel('Nm');
-subplot(322); plot(tauDH_vs(2:6:180)); hold on; plot(tauDH_cap(2:6:180),'-.'); title('Joint2'); ylabel('Nm');
-subplot(323); plot(tauDH_vs(3:6:180)); hold on; plot(tauDH_cap(3:6:180),'-.'); title('Joint3'); ylabel('Nm');
-subplot(324); plot(tauDH_vs(4:6:180)); hold on; plot(tauDH_cap(4:6:180),'-.'); title('Joint4'); ylabel('Nm');
-subplot(325); plot(tauDH_vs(5:6:180)); hold on; plot(tauDH_cap(5:6:180),'-.'); title('Joint5'); ylabel('Nm');
-subplot(326); plot(tauDH_vs(6:6:180)); hold on; plot(tauDH_cap(6:6:180),'-.'); title('Joint6'); ylabel('Nm');
+subplot(321); plot(tauDH_vs(1:6:1500)); hold on; plot(tauDH_cap(1:6:1500),'-.'); title('Joint1'); ylabel('Nm');
+subplot(322); plot(tauDH_vs(2:6:1500)); hold on; plot(tauDH_cap(2:6:1500),'-.'); title('Joint2'); ylabel('Nm');
+subplot(323); plot(tauDH_vs(3:6:1500)); hold on; plot(tauDH_cap(3:6:1500),'-.'); title('Joint3'); ylabel('Nm');
+subplot(324); plot(tauDH_vs(4:6:1500)); hold on; plot(tauDH_cap(4:6:1500),'-.'); title('Joint4'); ylabel('Nm');
+subplot(325); plot(tauDH_vs(5:6:1500)); hold on; plot(tauDH_cap(5:6:1500),'-.'); title('Joint5'); ylabel('Nm');
+subplot(326); plot(tauDH_vs(6:6:1500)); hold on; plot(tauDH_cap(6:6:1500),'-.'); title('Joint6'); ylabel('Nm');
 
-
+figure; 
+subplot(321); plot(tauDH_vs(1:6:end)); hold on; plot(tauDH_cap(1:6:end),'-.'); title('Joint1'); ylabel('Nm');
+subplot(322); plot(tauDH_vs(2:6:end)); hold on; plot(tauDH_cap(2:6:end),'-.'); title('Joint2'); ylabel('Nm');
+subplot(323); plot(tauDH_vs(3:6:end)); hold on; plot(tauDH_cap(3:6:end),'-.'); title('Joint3'); ylabel('Nm');
+subplot(324); plot(tauDH_vs(4:6:end)); hold on; plot(tauDH_cap(4:6:end),'-.'); title('Joint4'); ylabel('Nm');
+subplot(325); plot(tauDH_vs(5:6:end)); hold on; plot(tauDH_cap(5:6:end),'-.'); title('Joint5'); ylabel('Nm');
+subplot(326); plot(tauDH_vs(6:6:end)); hold on; plot(tauDH_cap(6:6:end),'-.'); title('Joint6'); ylabel('Nm');

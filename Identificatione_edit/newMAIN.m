@@ -12,7 +12,6 @@ qSim = IdMatrix(cutoff:end,23:29); % Matrice Q, variabili di giunto LETTE dal co
 ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
 %% Troviamo i punti nella Traj
 T = 0:1/F:(size(min_value,2)-1)*interval;
-size(T,2) - size(Traj,1)
 I = 1:interval*F:size(Traj,1);
 traj_min_value = Traj(I,1:6);
 error1 = mean(mean(abs(traj_min_value-min_value(1:6,:)')));
@@ -51,11 +50,11 @@ figure; plot(T,Traj); title('Traj');
 figure; plot(T,qSim); title('qSim');
 figure; plot(T,ISim); title('ISim');
 %% Compute derivate
-Fs = 500; %500 perché è stato considerato un intervallo tra i campioni ogni 0.2 invece di ogni 0.1 così com'era in fase
+Fs = 500; % 500 perché è stato considerato un intervallo tra i campioni ogni 0.2 invece di ogni 0.1 così com'era in fase
           % di definizione della traiettoria.
 dqSim = sgolayfilt(diff(qSim)*Fs,1,17);
 ddqSim = sgolayfilt(diff(dqSim)*Fs,1,17);
-figure; plot(T,dqSim(20:end-20,:)); figure; plot(T,ddqSim(20:end-20,:));
+figure; plot(dqSim(20:end-20,:)); figure; plot(ddqSim(20:end-20,:));
 %% Generazione TRAINING SET
 load('ROW_TS.mat');
 qSim_TS = qSim(ROW,:);
@@ -74,22 +73,29 @@ I_vs = ISim(r,:);
 W_TS = computeW(qSim_TS', dqSim_TS', ddqSim_TS', N_TS);
 Kt = diag(kt);
 H = diag([-1 1 -1 -1 1 -1]);
-A = ((H')^-1 * Kr' * Kt);
+A = ((H')^-1*Kr'*Kt);
 tauDH_TS = A*IISim_TS';
 PI_TS = pinv(W_TS)*tauDH_TS(:);
 TAU = W_TS*PI_TS;
-err = mean(abs(TAU-tauDH_TS(:)))
-%% Validazione Algoritmo di calcolo dei Parametri Dinamici
-W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', N_vs);
-tauDH_vs = [] ;
-for i=1:size(I_vs,1)
-     toAdd = A*I_vs(i,:)';
-     tauDH_vs = [tauDH_vs; toAdd];
+TAU_TS = size(tauDH_TS);
+for i=1:size(tauDH_TS,2)
+    start = (i-1)*6+1;
+    stop = i*6;
+    TAU_TS(1:6,i) = TAU(start:stop);
 end
-
-tauDH_cap = W_vs*PI_TS;
-err = mean(abs(tauDH_cap-tauDH_vs))
-
+err = mean(mean(abs(TAU_TS-tauDH_TS)))
+err = mean(mean(abs(A^-1*TAU_TS-A^-1*tauDH_TS)))
+%% Validazione Algoritmo di calcolo dei Parametri Dinamici
+% W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', N_vs);
+% tauDH_vs = [] ;
+% for i=1:size(I_vs,1)
+%      toAdd = A*I_vs(i,:)';
+%      tauDH_vs = [tauDH_vs; toAdd];
+% end
+% 
+% tauDH_cap = W_vs*PI_TS;
+% err = mean(abs(tauDH_cap-tauDH_vs))
+% 
 
 
 

@@ -1,4 +1,4 @@
-function [G, Cor, Fs, Fv, B] = generateModel(qDH, dqDH, ddqDH)
+function [G, Cordq, Fsdq, Fv, B] = generateModel(qDH, dqDH)
 % B(q)ddq + C(q,dq)dq + Fv*dq + sign(dq)*Fs + g(q) = tau
 load('pi.mat')
 G = Regressore(qDH,zeros(1,6),zeros(1,6))*pigreca; % g(q) = tau
@@ -10,12 +10,14 @@ B(:,4) =  Regressore(qDH,zeros(1,6),[0,0,0,1,0,0])*pigreca - G;
 B(:,5) =  Regressore(qDH,zeros(1,6),[0,0,0,0,1,0])*pigreca - G;
 B(:,6) =  Regressore(qDH,zeros(1,6),[0,0,0,0,0,1])*pigreca - G;
 
-% Cor(:,1) =  RegrNoAtt(qDH,[dqDH(1),0,0,0,0,0],zeros(1,6))*pigreca - G;
-% Cor(:,2) =  RegrNoAtt(qDH,[0,dqDH(2),0,0,0,0],zeros(1,6))*pigreca - G;
-% Cor(:,3) =  RegrNoAtt(qDH,[0,0,dqDH(3),0,0,0],zeros(1,6))*pigreca - G;
-% Cor(:,4) =  RegrNoAtt(qDH,[0,0,0,dqDH(4),0,0],zeros(1,6))*pigreca - G;
-% Cor(:,5) =  RegrNoAtt(qDH,[0,0,0,0,dqDH(5),0],zeros(1,6))*pigreca - G;
-% Cor(:,6) =  RegrNoAtt(qDH,[0,0,0,0,0,dqDH(6)],zeros(1,6))*pigreca - G
-Cor =  RegrNoAtt(qDH,[dqDH(1),dqDH(2),dqDH(3),dqDH(4),dqDH(5),dqDH(6)],zeros(1,6))*pigreca - G;
+Fv(:,1) = genFv([1,0,0,0,0,0])*pigreca;
+Fv(:,2) = genFv([0,1,0,0,0,0])*pigreca;
+Fv(:,3) = genFv([0,0,1,0,0,0])*pigreca;
+Fv(:,4) = genFv([0,0,0,1,0,0])*pigreca;
+Fv(:,5) = genFv([0,0,0,0,1,0])*pigreca;
+Fv(:,6) = genFv([0,0,0,0,0,1])*pigreca;
+
+Fsdq = regAttStat(dqDH)*pigreca;
+Cordq =  Regressore(qDH,dqDH,zeros(1,6))*pigreca - G - Fv*dqDH - Fsdq;
 end
 

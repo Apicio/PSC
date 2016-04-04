@@ -10,19 +10,22 @@ B(:,4) =  Regressore(qDH,zeros(1,6),[0,0,0,1,0,0])*pigreca - G;
 B(:,5) =  Regressore(qDH,zeros(1,6),[0,0,0,0,1,0])*pigreca - G;
 B(:,6) =  Regressore(qDH,zeros(1,6),[0,0,0,0,0,1])*pigreca - G;
 
-Sn(:,1) =  Regressore(qDH,[1,0,0,0,0,0],zeros(1,6))*pigreca - G; % C(q,dq)dq + Fv*dq + sign(dq)*Fs(dq)
-Sn(:,2) =  Regressore(qDH,[0,1,0,0,0,0],zeros(1,6))*pigreca - G;
-Sn(:,3) =  Regressore(qDH,[0,0,1,0,0,0],zeros(1,6))*pigreca - G;
-(:,4) =  Regressore(qDH,[0,0,0,1,0,0],zeros(1,6))*pigreca - G;
-B(:,5) =  Regressore(qDH,[0,0,0,0,1,0],zeros(1,6))*pigreca - G;
-B(:,6) =  Regressore(qDH,[0,0,0,0,0,1],zeros(1,6))*pigreca - G;
+Sn(:,1) =  Regressore(qDH,[-1,0,0,0,0,0],zeros(1,6))*pigreca - G; % C(q,dq)dq + Fv*dq + sign(dq)*Fs
+Sn(:,2) =  Regressore(qDH,[0,-1,0,0,0,0],zeros(1,6))*pigreca - G;
+Sn(:,3) =  Regressore(qDH,[0,0,-1,0,0,0],zeros(1,6))*pigreca - G;
+Sn(:,4) =  Regressore(qDH,[0,0,0,-1,0,0],zeros(1,6))*pigreca - G;
+Sn(:,5) =  Regressore(qDH,[0,0,0,0,-1,0],zeros(1,6))*pigreca - G;
+Sn(:,6) =  Regressore(qDH,[0,0,0,0,0,-1],zeros(1,6))*pigreca - G;
 
-tau1 = Regressore(qDH,ones(1,6),zeros(1,6))*pigreca - G; % C(q,dq)dq + Fv*dq + sign(dq)*Fs(dq)
-tau2 = Regressore(qDH,-ones(1,6),zeros(1,6))*pigreca - G;
-tau = (tau1+tau2)/2; % C(q,dq)dq + Fv*dq
-Fs = tau1 - tau;
+Sp(:,1) =  Regressore(qDH,[1,0,0,0,0,0],zeros(1,6))*pigreca - G; % C(q,dq)dq + Fv*dq - Fs
+Sp(:,2) =  Regressore(qDH,[0,1,0,0,0,0],zeros(1,6))*pigreca - G;
+Sp(:,3) =  Regressore(qDH,[0,0,1,0,0,0],zeros(1,6))*pigreca - G;
+Sp(:,4) =  Regressore(qDH,[0,0,0,1,0,0],zeros(1,6))*pigreca - G;
+Sp(:,5) =  Regressore(qDH,[0,0,0,0,1,0],zeros(1,6))*pigreca - G;
+Sp(:,6) =  Regressore(qDH,[0,0,0,0,0,1],zeros(1,6))*pigreca - G;
 
-
+CFv = (Sp+Sn)./2; % C(q,dq)dq + Fv*dq
+Fs = Sp - CFv;    % C(q,dq)dq + Fv*dq + Fs - C(q,dq)dq + Fv*dq = Fs
 
 end
 

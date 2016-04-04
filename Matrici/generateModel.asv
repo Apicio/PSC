@@ -1,0 +1,28 @@
+function [G, Cor, Fs, Fv, B] = generateModel(qDH, dqDH, ddqDH)
+% B(q)ddq + C(q,dq)dq + Fv*dq + sign(dq)*Fs + g(q) = tau
+load('pi.mat')
+G = Regressore(qDH,zeros(1,6),zeros(1,6))*pigreca; % g(q) = tau
+
+B(:,1) =  Regressore(qDH,zeros(1,6),[1,0,0,0,0,0])*pigreca - G; %% B(q)ddq + g(q) = tau quindi tolgo G per ottenere B(q)ddq
+B(:,2) =  Regressore(qDH,zeros(1,6),[0,1,0,0,0,0])*pigreca - G;
+B(:,3) =  Regressore(qDH,zeros(1,6),[0,0,1,0,0,0])*pigreca - G;
+B(:,4) =  Regressore(qDH,zeros(1,6),[0,0,0,1,0,0])*pigreca - G;
+B(:,5) =  Regressore(qDH,zeros(1,6),[0,0,0,0,1,0])*pigreca - G;
+B(:,6) =  Regressore(qDH,zeros(1,6),[0,0,0,0,0,1])*pigreca - G;
+
+Sn(:,1) =  Regressore(qDH,[1,0,0,0,0,0],zeros(1,6))*pigreca - G; % C(q,dq)dq + Fv*dq + sign(dq)*Fs(dq)
+Sn(:,2) =  Regressore(qDH,[0,1,0,0,0,0],zeros(1,6))*pigreca - G;
+Sn(:,3) =  Regressore(qDH,[0,0,1,0,0,0],zeros(1,6))*pigreca - G;
+(:,4) =  Regressore(qDH,[0,0,0,1,0,0],zeros(1,6))*pigreca - G;
+B(:,5) =  Regressore(qDH,[0,0,0,0,1,0],zeros(1,6))*pigreca - G;
+B(:,6) =  Regressore(qDH,[0,0,0,0,0,1],zeros(1,6))*pigreca - G;
+
+tau1 = Regressore(qDH,ones(1,6),zeros(1,6))*pigreca - G; % C(q,dq)dq + Fv*dq + sign(dq)*Fs(dq)
+tau2 = Regressore(qDH,-ones(1,6),zeros(1,6))*pigreca - G;
+tau = (tau1+tau2)/2; % C(q,dq)dq + Fv*dq
+Fs = tau1 - tau;
+
+
+
+end
+

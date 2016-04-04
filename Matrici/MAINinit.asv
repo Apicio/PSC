@@ -1,0 +1,8 @@
+clc; clear all; close all;
+qDH = [0 0 1 1 1 1 1 1];
+% B(q)ddq + C(q,dq)dq + Fv*dq + sign(dq)*Fs + g(q) = tau
+grav = CGravita(qDH(3:end));
+
+
+
+

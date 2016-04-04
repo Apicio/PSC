@@ -84,8 +84,7 @@ PI_TS = pinv(W_TS)*tauDH_TS(:);
 TAU = W_TS*PI_TS;
 
 err = mean(abs(TAU-tauDH_TS(:)))
-errOnJointsTS = computeErr(TAU, tauDH_TS(:),6)
-
+[errOnJointsTS, relerrOnJointsTS] = computeErr(TAU, tauDH_TS(:),6)
 %% Validazione Algoritmo di calcolo dei Parametri Dinamici
 %W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', N_vs);
 W_vs = computeW(qSim_vs', dqSim_vs', ddqSim_vs', size(r,2));
@@ -98,7 +97,7 @@ end
 tauDH_cap = W_vs*PI_TS;
 
 err = mean(abs(tauDH_cap-tauDH_vs))
-errOnJointsVS = computeErr(tauDH_cap, tauDH_vs,6)
+[errOnJointsVS, relerrOnJointsVS] = computeErr(tauDH_cap, tauDH_vs,6)
 %% Plot delle coppie misurate e ricostruite, solo Validation Set
 figure; 
 subplot(321); plot(tauDH_vs(1:6:1500)); hold on; plot(tauDH_cap(1:6:1500),'-.'); title('Joint1'); ylabel('Nm');

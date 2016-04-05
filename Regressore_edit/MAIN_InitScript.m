@@ -27,7 +27,8 @@ end
 % imponendo i limiti di giunto e ulteriori parametri definiti in options.
 % Di seguito viene ricaricato il workspace relativo al risultato delle
 % operazioni precedentemente descritte. 
-load('costFun38.mat')
+%load('costFun38.mat')
+load('traj.mat')
 %% Check Positions
 min_value(1,:) = min_value(1,:)+deg2rad(20);
 min_value(2,:) = min_value(2,:)-deg2rad(30);
@@ -64,7 +65,7 @@ p0 = [p1(1:6); zeros(12,1)];
 pend = [min_value(1:6,end); zeros(12,1)];
 min_value = [p0, p1, p2, p3, min_value, pend];
 %% Generazione Traiettoria
-F = 1000;
+F = 500;
 tstart = 0; tend = 1.2550;
 %[times, srt] = minPlot(min_value, F, tstart, tend);
 traj = genTraj(min_value, 1:1:size(min_value,2), 6, size(min_value,2), tstart, tend, F);
@@ -100,4 +101,35 @@ disp('Traiettoria salvata in traj.txt');
 %     i=i-1*10^(-3);
 % end
 
+figure;
+unnome=ones(size(dtraj(1,:)))*dqmaxcomau(1);
+due = ones(size(dtraj(1,:)))*dqmaxcomau(2);
+tre = ones(size(dtraj(1,:)))*dqmaxcomau(3);
+quatt = ones(size(dtraj(1,:)))*dqmaxcomau(4);
+cin = ones(size(dtraj(1,:)))*dqmaxcomau(5);
+sei = ones(size(dtraj(1,:)))*dqmaxcomau(6);
 
+subplot(321); plot(dtraj(1,:)); hold on; plot(unnome,'r'); hold on;  plot(-unnome,'r'); title('Velocità Giunto 1');
+subplot(322); plot(dtraj(2,:)); hold on; plot(due,'r'); hold on;  plot(-due,'r'); title('Velocità Giunto 2')
+subplot(323); plot(dtraj(3,:)); hold on; plot(tre,'r'); hold on;  plot(-tre,'r'); title('Velocità Giunto 3')
+subplot(324); plot(dtraj(4,:)); hold on; plot(quatt,'r'); hold on;  plot(-quatt,'r'); title('Velocità Giunto 4')
+subplot(325); plot(dtraj(5,:)); hold on; plot(cin,'r'); hold on;  plot(-cin,'r'); title('Velocità Giunto 5')
+subplot(326); plot(dtraj(6,:)); hold on; plot(sei,'r'); hold on;  plot(-sei,'r'); title('Velocità Giunto 6')
+
+% for i=1:6
+%     ddtraj(i,:) = sgolayfilt(ddtraj(i,:),1,17);
+% end
+figure;
+unnome=ones(size(dtraj(1,:)))*ddqmaxcomau(1);
+due = ones(size(dtraj(1,:)))*ddqmaxcomau(2);
+tre = ones(size(dtraj(1,:)))*ddqmaxcomau(3);
+quatt = ones(size(dtraj(1,:)))*ddqmaxcomau(4);
+cin = ones(size(dtraj(1,:)))*ddqmaxcomau(5);
+sei = ones(size(dtraj(1,:)))*ddqmaxcomau(6);
+
+subplot(321); plot(ddtraj(1,:)); hold on; plot(unnome,'r'); hold on;  plot(-unnome,'r'); title('Accelerazione Giunto 1');
+subplot(322); plot(ddtraj(2,:)); hold on; plot(due,'r'); hold on;  plot(-due,'r'); title('Accelerazione Giunto 2')
+subplot(323); plot(ddtraj(3,:)); hold on; plot(tre,'r'); hold on;  plot(-tre,'r'); title('Accelerazione Giunto 3')
+subplot(324); plot(ddtraj(4,:)); hold on; plot(quatt,'r'); hold on;  plot(-quatt,'r'); title('Accelerazione Giunto 4')
+subplot(325); plot(ddtraj(5,:)); hold on; plot(cin,'r'); hold on;  plot(-cin,'r'); title('Accelerazione Giunto 5')
+subplot(326); plot(ddtraj(6,:)); hold on; plot(sei,'r'); hold on;  plot(-sei,'r'); title('Accelerazione Giunto 6')

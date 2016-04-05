@@ -1,7 +1,0 @@
-function [grav, Cor, Fs, Fv, Iner] = generateModel(qDH, dqDH, ddqDH)
-% B(q)ddq + C(q,dq)dq + Fv*dq + sign(dq)*Fs(dq) + g(q) = tau
-load('pi.mat')
-grav = Regressore(qDH,zeros(1,6),zeros(1,6))*pigreca;
-grav = grav';
-end
-

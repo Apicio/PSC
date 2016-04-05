@@ -18,6 +18,6 @@ Fv(:,5) = genFv([0,0,0,0,1,0])*pigreca;
 Fv(:,6) = genFv([0,0,0,0,0,1])*pigreca;
 
 Fsdq = regAttStat(dqDH)*pigreca;
-Cordq =  Regressore(qDH,dqDH,zeros(1,6))*pigreca - G - Fv*dqDH - Fsdq;
+Cordq =  Regressore(qDH,dqDH,zeros(1,6))*pigreca - G - Fv*dqDH' - Fsdq;
 end
 

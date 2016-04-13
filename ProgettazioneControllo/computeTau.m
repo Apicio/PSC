@@ -4,7 +4,7 @@ function [ tauMecc, tauAmp ] = computeTau()
 MotorParametersBushelessLafert;
 costanti;
 load('Fv.mat');
-load('Bconst.mat');
+load('Bconst2.mat');
 s = 0:10:50;
 %tauAmp = L/R
 %tauMecc = I/Fm = (bi/kri^2)/(fv/kri^2) = bi/fv
@@ -15,7 +15,21 @@ for i=1:6
     tauMecc(i) = Bconst(i,i)/Fv(i,i); %Non ci interessa l'accoppiamento, stimo solo facendo un confroto fra le tau
 
 end
-figure(1), stem(s,tauAmp); hold on; stem(s,tauMecc); legend('tauAmp','tauMecc');
+figure
+stem(tauAmp,'r')
+hold on
+stem(tauMecc,'b')
+legend('tauAmp','tauMecc');
+s = tf('s');
 
+for i=1:6
+    figure
+    fun = (1/(tauAmp(i)*s +1))*(1/(tauMecc(i)*s+1));
+    bode (fun);
+    hold on
+    fun = (1/(tauMecc(i)*s+1));
+    bode (fun);
+    title(strcat('Giunto-',num2str(i)));
+end
 end
 

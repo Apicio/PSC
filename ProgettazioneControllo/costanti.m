@@ -33,12 +33,12 @@ SIX_INIT_XX001;
 % ***********************************************************************************************************************
 
 % Costante di coppia del motore % [Kt di picco] = (Nm/Arms)/sqrt(2) 
-  kt      = [data_motori(1).KTpicco
-             data_motori(2).KTpicco
-             data_motori(3).KTpicco
-             data_motori(4).KTpicco
-             data_motori(5).KTpicco
-             data_motori(6).KTpicco];              
+%   kt      = [data_motori(1).KTpicco
+%              data_motori(2).KTpicco
+%              data_motori(3).KTpicco
+%              data_motori(4).KTpicco
+%              data_motori(5).KTpicco
+%              data_motori(6).KTpicco];              
 % Inverso della costante di coppia [A/Nm]
   knm2dac = [1/data_motori(1).KTpicco
              1/data_motori(2).KTpicco

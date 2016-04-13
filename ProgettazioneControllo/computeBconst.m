@@ -3,7 +3,7 @@ pos_inf = [-2.9671   -3.0543    -1.5708    -3.6652    -2.2689    -43.9823]; %m m
 pos_sup = [2.9671    1.1345     1.3963     3.6652     2.2689     50.2655]; 
 load('pi.mat');
 digits 3
-T = 0.008;
+T = 0.05;
 %% Giunto 6
 giunto = 6;
 qDH = zeros(1,6);
@@ -16,7 +16,7 @@ for j=1:1:size(range,2)
     tmp = Regressore(qDH,zeros(1,6),ddqDH)*pigreca - G;
     tmpBM(j) = mean(tmp);
 end
-Bconst(giunto,giunto) = mean(tmpBM);
+Bconst(giunto,giunto) = mean(tmpBM)
 disp(strcat('done ',num2str(giunto)));
 %% Giunto 5
 giunto = 5;
@@ -30,7 +30,7 @@ for j=1:1:size(range,2)
     tmp = Regressore(qDH,zeros(1,6),ddqDH)*pigreca - G;
     tmpBM(j) = mean(tmp);
 end
-Bconst(giunto,giunto) = mean(tmpBM);
+Bconst(giunto,giunto) = mean(tmpBM)
 disp(strcat('done ',num2str(giunto)));
 %% Giunto 4
 giunto = 4;
@@ -44,7 +44,7 @@ for j=1:1:size(range,2)
     tmp = Regressore(qDH,zeros(1,6),ddqDH)*pigreca - G;
     tmpBM(j) = mean(tmp);
 end
-Bconst(giunto,giunto) = mean(tmpBM);
+Bconst(giunto,giunto) = mean(tmpBM)
 disp(strcat('done ',num2str(giunto)));
 %% Giunto 3
 giunto = 3;
@@ -58,7 +58,7 @@ for j=1:1:size(range,2)
     tmp = Regressore(qDH,zeros(1,6),ddqDH)*pigreca - G;
     tmpBM(j) = mean(tmp);
 end
-Bconst(giunto,giunto) = mean(tmpBM);
+Bconst(giunto,giunto) = mean(tmpBM)
 disp(strcat('done ',num2str(giunto)));
 %% Giunto 2
 giunto = 2;
@@ -67,17 +67,18 @@ qDH = zeros(1,6);
 ddqDH = zeros(1,6);
 range = pos_inf(giunto):T:pos_sup(giunto);
 rangedip1 = pos_inf(dipendenza1):T:pos_sup(dipendenza1);
-tmpBM = zeros(size(range,2),size(rangedip1,2));
+curr = zeros(6,1);
+iter = 1;
 for j=1:size(range,2)
-    disp(strcat('step ',num2str(j)));
     for k = 1:size(rangedip1,2)
         qDH(giunto) = range(j); ddqDH(giunto) = 1; qDH(dipendenza1) = rangedip1(k);
         G = Regressore(qDH,zeros(1,6),zeros(1,6))*pigreca; % g(q) = tau
         tmp = Regressore(qDH,zeros(1,6),ddqDH)*pigreca - G;
-        tmpBM(j,k) = mean(tmp);
+        curr = tmp + curr;
+        iter = iter +1;
     end
 end
-Bconst(giunto,giunto) = mean2(tmpBM);
+Bconst(giunto,giunto) = mean(curr./iter)
 disp(strcat('done ',num2str(giunto)));
 %% Giunto 1
 giunto = 1;
@@ -88,7 +89,8 @@ ddqDH = zeros(1,6);
 range = pos_inf(giunto):T:pos_sup(giunto);
 rangedip1 = pos_inf(dipendenza1):T:pos_sup(dipendenza1);
 rangedip2 = pos_inf(dipendenza2):T:pos_sup(dipendenza2);
-tmpBM = zeros(size(range,2),size(rangedip1,2),size(rangedip2,2));
+curr = zeros(6,1);
+iter = 1;
 for j=1:size(range,2)
     disp(strcat('step ',num2str(j)));
     for k = 1:size(rangedip1,2)
@@ -96,11 +98,12 @@ for j=1:size(range,2)
             qDH(giunto) = range(j); ddqDH(giunto) = 1; qDH(dipendenza1) = rangedip1(k); qDH(dipendenza2) = rangedip2(i);
             G = Regressore(qDH,zeros(1,6),zeros(1,6))*pigreca; % g(q) = tau
             tmp = Regressore(qDH,zeros(1,6),ddqDH)*pigreca - G;
-            tmpBM(i,k,j) = mean(tmp);
+            curr = tmp + curr;
+            iter = iter +1;
         end
     end
 end
-Bconst(giunto,giunto) = mean2(mean(tmpBM));
+Bconst(giunto,giunto) = mean(curr./iter)
 disp(strcat('done ',num2str(giunto)));
 % 
 % 

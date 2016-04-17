@@ -13,5 +13,4 @@ Tm = zeros(6,1); Wn = zeros(1,6); Tg = zeros(1,6);
 Tm = Bconst*diag(Ra)*KT^-1*KV^-1;
 %Tg = Tm*abs(Kr^-1); %% Da Motori a Giunti, non si è ancora capito se è giusto.
 Wn = Tm^-1;
-
 end

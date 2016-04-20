@@ -1,8 +1,17 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INIZIALIZZAZIONE %%%%%%%%%%%%%%%%%%%%%%
 clear all; close all;
 pos_inf = [-2.9671   -3.0543    -1.5708    -3.6652    -2.2689    -43.9823]; %m m radx6
 pos_sup = [2.9671    1.1345     1.3963     3.6652     2.2689     50.2655]; 
-load('pigreca.mat');
-T = 0.05;
+MotorParametersBushelessLafert
+costanti;
+load('pigreca2.mat');
+load('Fv.mat');
+T = 0.1;
+Ra(2) = 58.95;
+kt = [0.7; 1.04; 0.7; 0.51; 0.51; 0.51];
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+todo = 1;
+if(todo)
 %% Giunto 6
 giunto = 6;
 qDH = zeros(1,6);
@@ -104,4 +113,43 @@ for j=1:size(range,2)
 end
 disp(strcat('done ',num2str(giunto)));
 Bconst(giunto,giunto) = mean(curr./iter)
+else
+    load('BconstOurLast.mat')
+    Bconst
+end
+%% Compute Wn
+KT = diag(kt); KV = diag(kv); RA = diag(Ra); Kr = diag(kr);
+I = Kr^-1*Bconst*Kr^-1;
+Tm = I*diag(Ra)*KT^-1*KV^-1;
+Wn = Tm^-1
+%% Compute Tau
+%tauAmp = L/R
+%tauMecc = I/Fm = (bi/kri^2)/(fv/kri^2) = bi/fv
+
+Fm = Kr^-1*Fv*Kr^-1;
+for i=1:6
+    tauAmp(i)=La(i)/Ra(i);
+    tauMecc(i) = Bconst(i,i)/Fv(i,i); %Non ci interessa l'accoppiamento, stimo solo facendo un confroto fra le tau
+end
+
+figure
+stem(tauAmp,'r')
+hold on
+stem(tauMecc,'b')
+legend('tauAmp','tauMecc');
+s = tf('s');
+wn = [];
+for i=1:6
+    figure
+    fun = (kt(i)/(Ra(i)*Fm(i,i)))*((1/(tauAmp(i)*s +1))*(1/(tauMecc(i)*s+1)));
+    margin(fun);
+    [~,~,~,Wpm] = margin(fun);
+    wn = [wn , Wpm];
+    hold on
+    fun = (kt(i)/(Ra(i)*Fm(i,i)))*(1/(tauMecc(i)*s+1));
+    margin(fun);
+    title(strcat('Giunto-',num2str(i)));
+end
+wn
+
 

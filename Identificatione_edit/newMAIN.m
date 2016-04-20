@@ -4,12 +4,23 @@ load('IdMatrix.mat');
 load('min_value.mat');
 distance_from_wall = 0.50;
 delay = 300; interval = 1.2550; F=1000; costanti;
+MotorParametersBushelessLafert
+kt = [0.7; 1.04; 0.7; 0.51; 0.51; 0.51];
 %% Load WorkSpace
 cutoff = 42000;
 t = IdMatrix(cutoff:end,1);        % Vettore dei tempi
 qInv = IdMatrix(cutoff:end,2:8);   % Matrice Q, variabili di giunto INVIATE al controllore
 qSim = IdMatrix(cutoff:end,23:29); % Matrice Q, variabili di giunto LETTE dal controllore
 ISim = IdMatrix(cutoff:end,37:43); % Matrice delle Correnti lette dai sensori
+index = [];
+digits 3
+for i=1:size(t,1)-1
+    if((t(i+1)-t(i)) ~= 1/500)
+        index = [index , i];
+    end
+end
+t(index) = [];
+
 %% Troviamo i punti nella Traj
 T = 0:1/F:(size(min_value,2)-1)*interval;
 size(T,2) - size(Traj,1)
@@ -42,9 +53,9 @@ qInv = qInv(i:size(Traj,1)+i-1,1:6);           % Matrice Q, variabili di giunto 
 qSim = qSim((i+j):size(Traj,1)+(i+j)-1,1:6);   % Matrice Q, variabili di giunto LETTE dal controllore
 ISim = ISim((i+j):size(Traj,1)+(i+j)-1,1:6);   % Matrice delle Correnti lette dai sensori
 %% Denoising dei segnali misurati
-qSim = sgolayfilt(qSim,1,17);
-ISim = sgolayfilt(ISim,1,17);
-figure; plot(T,ISim);
+% qSim = sgolayfilt(qSim,1,17);
+% ISim = sgolayfilt(ISim,1,17);
+% figure; plot(T,ISim);
 %% Show Results
 figure; plot(T,qInv); title('qInv');
 figure; plot(T,Traj); title('Traj');
@@ -78,8 +89,10 @@ I_vs = ISim(r,:);
 W_TS = computeW(qSim_TS', dqSim_TS', ddqSim_TS', N_TS);
 Kt = diag(kt);
 H = diag([-1 1 -1 -1 1 -1]);
+Kr(6,5) = 0;
 A = ((H')^-1 * Kr' * Kt);
 tauDH_TS = A*IISim_TS';
+det(W_TS'*W_TS)
 PI_TS = pinv(W_TS)*tauDH_TS(:);
 TAU = W_TS*PI_TS;
 

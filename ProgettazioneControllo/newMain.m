@@ -151,5 +151,12 @@ for i=1:6
     title(strcat('Giunto-',num2str(i)));
 end
 wn
+%% Approssimazione retroazione
+kv
+k = Fm*RA*KT^-1;
+[k(1,1) k(2,2) k(3,3) k(4,4) k(5,5) k(6,6)]
+
+
+
 
 

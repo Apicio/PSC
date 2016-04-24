@@ -8,8 +8,13 @@ dtraj = zeros(size(traj));
 ddtraj = zeros(size(traj));
 % toRet = [];
 toRet = 1;
+Fs = 500;
 for j=1:size(traj,1)
-        [dtraj(j,1:end), ddtraj(j,1:end)] = computeDerivate(traj(j,1:end), T);
+        %[dtraj(j,1:end), ddtraj(j,1:end)] = computeDerivate(traj(j,1:end), T);
+        dtraj = sgolayfilt(diff(traj')*Fs,1,17);
+        ddtraj = sgolayfilt(diff(dtraj)*Fs,1,17);
+        dtraj = dtraj';
+        ddtraj = ddtraj';
         if( abs(max(dtraj(j,10:end))) > dqmaxcomau(j) ||  abs(max(ddtraj(j,10:end))) > ddqmaxcomau(j))
            toRet = [toRet; j];
            toRet(1) = 0;

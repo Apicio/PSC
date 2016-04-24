@@ -27,8 +27,8 @@ end
 % imponendo i limiti di giunto e ulteriori parametri definiti in options.
 % Di seguito viene ricaricato il workspace relativo al risultato delle
 % operazioni precedentemente descritte. 
-%load('costFun38.mat')
-load('traj.mat')
+load('costFun38.mat')
+%load('traj.mat')
 %% Check Positions
 min_value(1,:) = min_value(1,:)+deg2rad(20);
 min_value(2,:) = min_value(2,:)-deg2rad(30);

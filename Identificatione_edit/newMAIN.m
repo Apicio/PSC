@@ -3,9 +3,8 @@ load('traj.mat');
 load('IdMatrix.mat');
 load('min_value.mat');
 distance_from_wall = 0.50;
-delay = 300; interval = 1.2550; F=1000; costanti;
-MotorParametersBushelessLafert
-kt = [0.7; 1.04; 0.7; 0.51; 0.51; 0.51];
+delay = 300; interval = 1.2550; F=1000; 
+ParametriMotori
 %% Load WorkSpace
 cutoff = 42000;
 t = IdMatrix(cutoff:end,1);        % Vettore dei tempi
@@ -20,7 +19,6 @@ for i=1:size(t,1)-1
     end
 end
 t(index) = [];
-
 %% Troviamo i punti nella Traj
 T = 0:1/F:(size(min_value,2)-1)*interval;
 size(T,2) - size(Traj,1)
@@ -87,9 +85,7 @@ ddqSim_vs = ddqSim(r,:);
 I_vs = ISim(r,:);
 %% Calcolo Parametri Dinamici
 W_TS = computeW(qSim_TS', dqSim_TS', ddqSim_TS', N_TS);
-Kt = diag(kt);
 H = diag([-1 1 -1 -1 1 -1]);
-Kr(6,5) = 0;
 A = ((H')^-1 * Kr' * Kt);
 tauDH_TS = A*IISim_TS';
 det(W_TS'*W_TS)

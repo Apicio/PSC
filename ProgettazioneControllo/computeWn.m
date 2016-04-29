@@ -7,14 +7,9 @@ ddqmaxcomau = [20 20 20 35 45 45]; %accelerazioni massime ai giunti m/s^2 m/s^2 
 %Utilizziamo la costante temporale del motore per poter calcolare Wn
 % Tm = (Bconst_i*Ra)/(Kt*Kv)
 load('BconstOurLast.mat');
-MotorParametersBushelessLafert
-costanti;
-Ra(2) = 58.95;
-kt = [0.7; 1.04; 0.7; 0.51; 0.51; 0.51];
-KT = diag(kt); KV = diag(kv); RA = diag(Ra); 
+ParametriMotori
 Tm = zeros(6,1); Wn = zeros(1,6); Tg = zeros(1,6);
-Kr = diag(kr);
 I = Kr^-1*Bconst*Kr^-1;
-Tm = I*diag(Ra)*KT^-1*KV^-1;
+Tm = I*Ra*Kt^-1*Kv^-1;
 %Tg = Tm*abs(Kr^-1); %% Da Motori a Giunti, non si è ancora capito se è giusto.
 Wn = Tm^-1;

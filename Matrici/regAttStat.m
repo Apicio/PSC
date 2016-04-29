@@ -57,18 +57,6 @@ Kr = diag([-1.478018575851390
       % attrito viscoso
         Phi(i,k+2*i) = 0;
     end % for i
-  % Contributi dovuti agli attriti
-%     [n,k] = size(Phi);
-%     for i = 1 : n
-%       % attrito statico
-%         if abs(dqm(i)) > soglia
-%           Phi(i,k+1+2*(i-1)) = dqm(i)/abs(dqm(i));
-%         else
-%           Phi(i,k+1+2*(i-1)) = dqm(i)/soglia;
-%         end % if
-%       % attrito viscoso
-%         Phi(i,k+2*i) = dqm(i);
-%     end % for i
 H=[ -1     0     0     0     0     0
      0     1     0     0     0     0
      0     0    -1     0     0     0

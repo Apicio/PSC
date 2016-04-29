@@ -1,13 +1,13 @@
 close all; clear all;
 %% Inizializzazione Parametri
-load('Tm.mat'); costanti; MotorParametersBushelessLafert;
-KT = diag(Kt); 
-KV = diag(kv); 
-RA = diag(Ra); 
-KM = KV^-1; 
+load('BconstOurLast.mat');
+ParametriMotori
+I = Kr^-1*Bconst*Kr^-1;
+Tm = I*Ra*Kt^-1*Kv^-1;
+KM = Kv^-1; 
 KCP = diag([1 1 1 1 1 1]); 
 KCV = diag([1 1 1 1 1 1]);
-TCV = diag([100 1 1 1 1 1]); 
+TCV = diag([0.01 1 1 1 1 1]); 
 KTV = diag([1 1 1 1 1 1]);
 KTP = diag([1 1 1 1 1 1]);
 s = tf('s');

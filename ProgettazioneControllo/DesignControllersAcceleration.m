@@ -1,4 +1,4 @@
-close all; clear all;
+close all; clearvars;
 %% Inizializzazione Parametri
 load('BconstOurLast.mat');
 ParametriMotori

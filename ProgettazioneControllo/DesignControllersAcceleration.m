@@ -15,12 +15,12 @@ KM = Kv^-1;                     %Guadagno sistema
 % S.ka = (- w^2 + km*xr)/(km*kta*w^2)
 
 Z = diag([1 1 1 1 1 1]);
-W = diag([200 1 1 1 1 1]);
-XR = diag([1 1 1 1 1 1]);
+W = diag([400 1 1 1 1 1]);
+XR = diag([8 1 1 1 1 1]);
 
-KTV = diag([1 1 1 1 1 1]); % Guadagno trasduttore in velocità
-KTP = diag([1 1 1 1 1 1]); % Guadagno trsduttore in posizione
-KTA = diag([1 1 1 1 1 1]); % Guadagno trasduttore in accelerazione
+KTV = diag([4 1 1 1 1 1]); % Guadagno trasduttore in velocità
+KTP = diag([9 1 1 1 1 1]); % Guadagno trsduttore in posizione
+KTA = diag([100 1 1 1 1 1]); % Guadagno trasduttore in accelerazione
 
 KCP = diag([(KTV(1,1)*W(1,1))/(2*KTP(1,1)*Z(1,1)),... %Guadagno controllore in posizione
             (KTV(2,2)*W(2,2))/(2*KTP(2,2)*Z(2,2)),...

@@ -1,20 +1,18 @@
 close all; clear all;
 %% Inizializzazione Parametri
-load('Tm.mat'); costanti; MotorParametersBushelessLafert;
-KT = diag(Kt); 
-KV = diag(kv);
-RA = diag(Ra); 
-KM = KV^-1;
+load('BconstOurLast.mat');
+ParametriMotori
+I = Kr^-1*Bconst*Kr^-1;
+Tm = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
+KM = Kv^-1;                     %Guadagno sistema
 
-KCP = diag([1 1 1 1 1 1]); 
-KCV = diag([1 1 1 1 1 1]);
-KCA = diag([1 1 1 1 1 1]);
-
-TCA = diag([1 1 1 1 1 1]); 
-KTV = diag([1 1 1 1 1 1]);
-KTP = diag([1 1 1 1 1 1]);
-KTA = diag([1 1 1 1 1 1]);
-
+KCP = diag([3000 1 1 1 1 1]); % Guadagno controllore in posizione
+KCV = diag([2027 1 1 1 1 1]); % Guadagno controllore in velocità
+KCA = diag([1 1 1 1 1 1]); % Guadagno controllore in accelerazione
+KTV = diag([900 1 1 1 1 1]); % Guadagno trasduttore in velocità
+KTP = diag([3000 1 1 1 1 1]); % Guadagno trsduttore in posizione
+KTA = diag([1 1 1 1 1 1]); % Guadagno trasduttore in accelerazione
+TCA = diag([Tm(1,1) 1 1 1 1 1]); % Costante di tempo controllore accelerazione
 s = tf('s');
 %% Giunto 1 
 giunto = 1;
@@ -25,6 +23,7 @@ F3 = KM(giunto,giunto)/((1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunt
 F4 = KTP(giunto,giunto)/s;
 F5 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));
 F = F1*F2*F3*F4*F5;
+zpk(F)
 rltool(F)
 %% Giunto 2 
 giunto = 2;

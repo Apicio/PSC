@@ -1,3 +1,4 @@
+
 clear all; clc; close all;
 %COMPUTETAU Summary of this function goes here
 %   Detailed explanation goes here
@@ -33,4 +34,3 @@ for i=1:6
     margin(fun);
     title(strcat('Giunto-',num2str(i)));
 end
-

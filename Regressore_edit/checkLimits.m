@@ -20,5 +20,3 @@ for j=1:size(traj,1)
            toRet(1) = 0;
         end
 end
-
-

@@ -12,10 +12,11 @@ KM = Kv^-1;                     %Guadagno sistema
 % S = solve(eq1,eq2,eq3,'kp,kv,ka')
 
 Z = diag([1 1 1 1 1 1]);
-W = diag([200 1 1 1 1 1]);
-XR = diag([1 1 1 1 1 1]);
-KTV = diag([900 1 1 1 1 1]); % Guadagno trasduttore in velocità
-KTP = diag([3000 1 1 1 1 1]); % Guadagno trsduttore in posizione
+W = diag([1000 1 1 1 1 1]);
+XR = diag([1000 1 1 1 1 1]);
+
+KTV = diag([1 1 1 1 1 1]); % Guadagno trasduttore in velocità
+KTP = diag([1 1 1 1 1 1]); % Guadagno trsduttore in posizione
 KTA = diag([1 1 1 1 1 1]); % Guadagno trasduttore in accelerazione
 
 KCP = diag([(KTV(1,1)*W(1,1))/(2*KTV(1,1)*Z(1,1)),... %Guadagno controllore in posizione

@@ -5,11 +5,11 @@ ParametriMotori
 I = Kr^-1*Bconst*Kr^-1;
 Tm = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
 KM = Kv^-1;                     %Guadagno sistema
-syms z w ktv kp ktp km kv ktp ka kta xr
-eq1 = 2*z/w - ktv/(kp*ktp)
-eq2 = 1/(w^2) - ((1+km*ka*kta)/(km*kp*ktp*kv*ka))
-eq3 = xr - kp*ktp*kv*ka
-S = solve(eq1,eq2,eq3,'kp,kv,ka')
+% syms z w ktv kp ktp km kv ktp ka kta xr
+% eq1 = 2*z/w - ktv/(kp*ktp)
+% eq2 = 1/(w^2) - ((1+km*ka*kta)/(km*kp*ktp*kv*ka))
+% eq3 = xr - kp*ktp*kv*ka
+% S = solve(eq1,eq2,eq3,'kp,kv,ka')
 
 Z = diag([1 1 1 1 1 1]);
 W = diag([200 1 1 1 1 1]);

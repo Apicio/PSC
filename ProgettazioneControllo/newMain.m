@@ -2,13 +2,10 @@
 clear all; close all;
 pos_inf = [-2.9671   -3.0543    -1.5708    -3.6652    -2.2689    -43.9823]; %m m radx6
 pos_sup = [2.9671    1.1345     1.3963     3.6652     2.2689     50.2655]; 
-MotorParametersBushelessLafert
-costanti;
+ParametriMotori
 load('pigreca2.mat');
 load('Fv.mat');
 T = 0.1;
-Ra(2) = 58.95;
-kt = [0.7; 1.04; 0.7; 0.51; 0.51; 0.51];
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 todo = 0;
 if(todo)
@@ -118,17 +115,13 @@ else
     Bconst
 end
 %% Compute Wn
-KT = diag(kt); KV = diag(kv); RA = diag(Ra); Kr = diag(kr);
 I = Kr^-1*Bconst*Kr^-1;
-Tm = I*diag(Ra)*KT^-1*KV^-1;
+Tm = I*Ra*Kt^-1*Kv^-1;
 Wn = Tm^-1
 %% Compute Tau
-%tauAmp = L/R
-%tauMecc = I/Fm = (bi/kri^2)/(fv/kri^2) = bi/fv
-
 Fm = Kr^-1*Fv*Kr^-1;
 for i=1:6
-    tauAmp(i)=La(i)/Ra(i);
+    tauAmp(i)=la(i)/ra(i);
     tauMecc(i) = Bconst(i,i)/Fv(i,i); %Non ci interessa l'accoppiamento, stimo solo facendo un confroto fra le tau
 end
 
@@ -141,19 +134,19 @@ s = tf('s');
 wn = [];
 for i=1:6
     figure
-    fun = (kt(i)/(Ra(i)*Fm(i,i)))*((1/(tauAmp(i)*s +1))*(1/(tauMecc(i)*s+1)));
+    fun = (kt(i)/(ra(i)*Fm(i,i)))*((1/(tauAmp(i)*s +1))*(1/(tauMecc(i)*s+1)));
     margin(fun);
     [~,~,~,Wpm] = margin(fun);
     wn = [wn , Wpm];
     hold on
-    fun = (kt(i)/(Ra(i)*Fm(i,i)))*(1/(tauMecc(i)*s+1));
+    fun = (kt(i)/(ra(i)*Fm(i,i)))*(1/(tauMecc(i)*s+1));
     margin(fun);
     title(strcat('Giunto-',num2str(i)));
 end
 wn
 %% Approssimazione retroazione
 kv
-k = Fm*RA*KT^-1;
+k = Fm*Ra*Kt^-1;
 [k(1,1) k(2,2) k(3,3) k(4,4) k(5,5) k(6,6)]
 
 

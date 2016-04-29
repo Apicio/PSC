@@ -12,4 +12,4 @@ Tm = zeros(6,1); Wn = zeros(1,6); Tg = zeros(1,6);
 I = Kr^-1*Bconst*Kr^-1;
 Tm = I*Ra*Kt^-1*Kv^-1;
 %Tg = Tm*abs(Kr^-1); %% Da Motori a Giunti, non si è ancora capito se è giusto.
-Wn = Tm^-1;
+Wn = Tm^-1

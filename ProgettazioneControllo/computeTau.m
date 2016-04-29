@@ -4,7 +4,6 @@ clear all; clc; close all;
 ParametriMotori
 load('Fv.mat');
 load('BconstOurLast.mat');
-s = 0:10:50;
 %tauAmp = L/R
 %tauMecc = I/Fm = (bi/kri^2)/(fv/kri^2) = bi/fv
 tauAmp = zeros(1,6);
@@ -14,7 +13,6 @@ Fm = Kr^-1*Fv*Kr^-1;
 for i=1:6
     tauAmp(i)=la(i)/ra(i);
     tauMecc(i) = Bconst(i,i)/Fv(i,i); %Non ci interessa l'accoppiamento, stimo solo facendo un confroto fra le tau
-
 end
 figure
 stem(tauAmp,'r')

@@ -3,13 +3,13 @@ close all; clear all;
 load('BconstOurLast.mat');
 ParametriMotori
 I = Kr^-1*Bconst*Kr^-1;
-Tm = I*Ra*Kt^-1*Kv^-1;
-KM = Kv^-1; 
-KCP = diag([1 1 1 1 1 1]); 
-KCV = diag([1 1 1 1 1 1]);
-TCV = diag([0.01 1 1 1 1 1]); 
-KTV = diag([1 1 1 1 1 1]);
-KTP = diag([1 1 1 1 1 1]);
+Tm = I*Ra*Kt^-1*Kv^-1;     %Cosante di tempo sistema
+KM = Kv^-1;                %Guadagno sistema
+KTV = diag([1 1 1 1 1 1]); %Guadagno trasduttore velocità
+KTP = diag([1 1 1 1 1 1]); %Guadagno trasduttore posizione
+KCP = diag([1 1 1 1 1 1]); %Guadagno controllore in posizione
+KCV = diag([1 1 1 1 1 1]); %Guadagno controllore in velocità
+TCV = diag([1 1 1 1 1 1]); %Costante di tempo controllore
 s = tf('s');
 %% Giunto 1 
 giunto = 1;

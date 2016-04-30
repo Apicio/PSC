@@ -13,9 +13,9 @@ KM = Kv^-1;                     %Guadagno sistema
 % S.kv = (2*w*z)/(km*ktv)
 
 Z = diag([1 1 1 1 1 1]);
-W = diag([100 1 1 1 1 1]);
-KTV = diag([100 1 1 1 1 1]);                          %Guadagno trasduttore velocità
-KTP = diag([100 1 1 1 1 1]);                          %Guadagno trasduttore posizione
+W = diag([360 430 420 404 530 481]);
+KTV = diag([1 1 1 1 1 1]);                          %Guadagno trasduttore velocità
+KTP = diag([1 1 1 1 1 1]);                          %Guadagno trasduttore posizione
 KCP = diag([(KTV(1,1)*W(1,1))/(2*KTP(1,1)*Z(1,1)),... %Guadagno controllore in posizione
             (KTV(2,2)*W(2,2))/(2*KTP(2,2)*Z(2,2)),...
             (KTV(3,3)*W(3,3))/(2*KTP(3,3)*Z(3,3)),...

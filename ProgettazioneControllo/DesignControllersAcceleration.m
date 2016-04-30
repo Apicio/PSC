@@ -15,7 +15,7 @@ KM = Kv^-1;                     %Guadagno sistema
 % S.ka = (- w^2 + km*xr)/(km*kta*w^2)
 
 Z = diag([1 1 1 1 1 1]);
-W = diag([400 1 1 1 1 1]);
+W = diag([360 430 420 404 530 481]);
 XR = diag([8 1 1 1 1 1]);
 
 KTV = diag([4 1 1 1 1 1]); % Guadagno trasduttore in velocità

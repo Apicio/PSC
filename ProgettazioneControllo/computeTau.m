@@ -31,3 +31,4 @@ for i=1:6
     margin(fun);
     title(strcat('Giunto-',num2str(i)));
 end
+ 

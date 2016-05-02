@@ -1,1 +1,0 @@
-una volta finito in questa cartella andranno gli script principali della consegna 1

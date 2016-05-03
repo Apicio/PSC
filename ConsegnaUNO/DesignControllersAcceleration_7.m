@@ -3,6 +3,7 @@ close all; clearvars;
 load('utilis/Bconst.mat');
 cd utilis
 ParametriMotori
+Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
 Tm = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
 KM = Kv^-1;                     %Guadagno sistema
@@ -58,6 +59,11 @@ i =1;
 H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
 W = minreal((1/H)/(1+1/F))
 figure, step(W), title(strcat('giunto',num2str(i)))
+% Digitale
+Fd = F*exp(-s*Td/2)
+figure, margin(Fd), title(strcat('delay giunto',num2str(i)))
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('delay giunto',num2str(i)))
 %% Giunto 2 
 giunto = 2;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -72,6 +78,11 @@ i =2;
 H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
 W = minreal((1/H)/(1+1/F))
 figure, step(W), title(strcat('giunto',num2str(i)))
+% Digitale
+Fd = F*exp(-s*Td/2)
+figure, margin(Fd), title(strcat('delay giunto',num2str(i)))
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('delay giunto',num2str(i)))
 %% Giunto 3 
 giunto = 3;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -86,6 +97,11 @@ i =3;
 H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
 W = minreal((1/H)/(1+1/F))
 figure, step(W), title(strcat('giunto',num2str(i)))
+% Digitale
+Fd = F*exp(-s*Td/2)
+figure, margin(Fd), title(strcat('delay giunto',num2str(i)))
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('delay giunto',num2str(i)))
 %% Giunto 4 
 giunto = 4;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -100,6 +116,11 @@ i =4;
 H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
 W = minreal((1/H)/(1+1/F))
 figure, step(W), title(strcat('giunto',num2str(i)))
+% Digitale
+Fd = F*exp(-s*Td/2)
+figure, margin(Fd), title(strcat('delay giunto',num2str(i)))
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('delay giunto',num2str(i)))
 %% Giunto 5 
 giunto = 5;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -114,6 +135,11 @@ i =5;
 H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
 W = minreal((1/H)/(1+1/F))
 figure, step(W), title(strcat('giunto',num2str(i)))
+% Digitale
+Fd = F*exp(-s*Td/2)
+figure, margin(Fd), title(strcat('delay giunto',num2str(i)))
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('delay giunto',num2str(i)))
 %% Giunto 6 
 giunto = 6;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -128,3 +154,8 @@ i =6;
 H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
 W = minreal((1/H)/(1+1/F))
 figure, step(W), title(strcat('giunto',num2str(i)))
+% Digitale
+Fd = F*exp(-s*Td/2)
+figure, margin(Fd), title(strcat('delay giunto',num2str(i)))
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('delay giunto',num2str(i)))

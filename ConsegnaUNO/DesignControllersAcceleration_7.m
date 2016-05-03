@@ -53,7 +53,11 @@ F4 = KTP(giunto,giunto)/s;
 F5 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));
 F = F1*F2*F3*F4*F5;
 zpk(F)
-rltool(minreal(F))
+%rltool(minreal(F))
+i =1;
+H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('giunto',num2str(i)))
 %% Giunto 2 
 giunto = 2;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -63,7 +67,11 @@ F3 = KM(giunto,giunto)/((1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunt
 F4 = KTP(giunto,giunto)/s;
 F5 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));
 F = F1*F2*F3*F4*F5;
-rltool(minreal(F))
+%rltool(minreal(F))
+i =2;
+H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('giunto',num2str(i)))
 %% Giunto 3 
 giunto = 3;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -73,7 +81,11 @@ F3 = KM(giunto,giunto)/((1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunt
 F4 = KTP(giunto,giunto)/s;
 F5 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));
 F = F1*F2*F3*F4*F5;
-rltool(minreal(F))
+%rltool(minreal(F))
+i =3;
+H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('giunto',num2str(i)))
 %% Giunto 4 
 giunto = 4;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -83,7 +95,11 @@ F3 = KM(giunto,giunto)/((1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunt
 F4 = KTP(giunto,giunto)/s;
 F5 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));
 F = F1*F2*F3*F4*F5;
-rltool(minreal(F))
+%rltool(minreal(F))
+i =4;
+H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('giunto',num2str(i)))
 %% Giunto 5 
 giunto = 5;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -93,7 +109,11 @@ F3 = KM(giunto,giunto)/((1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunt
 F4 = KTP(giunto,giunto)/s;
 F5 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));
 F = F1*F2*F3*F4*F5;
-rltool(minreal(F))
+%rltool(minreal(F))
+i =5;
+H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('giunto',num2str(i)))
 %% Giunto 6 
 giunto = 6;
 F0 = (1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto)*(TCA(giunto,giunto)/Tm(giunto,giunto)))/(1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunto));
@@ -103,4 +123,8 @@ F3 = KM(giunto,giunto)/((1+KM(giunto,giunto)*KCA(giunto,giunto)*KTA(giunto,giunt
 F4 = KTP(giunto,giunto)/s;
 F5 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));
 F = F1*F2*F3*F4*F5;
-rltool(minreal(F))
+%rltool(minreal(F))
+i =6;
+H = KTP(i,i)*(1 + (s*KTV(i,i))/(KCP(i,i)*KTP(i,i)));
+W = minreal((1/H)/(1+1/F))
+figure, step(W), title(strcat('giunto',num2str(i)))

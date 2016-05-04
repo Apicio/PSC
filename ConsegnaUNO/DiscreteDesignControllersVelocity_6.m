@@ -3,6 +3,7 @@ close all; clearvars;
 load('utilis/Bconst.mat');
 cd utilis
 ParametriMotori
+cd ..
 Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
 Tm = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
@@ -16,8 +17,8 @@ KM = Kv^-1;                     %Guadagno sistema
 
 Z = diag([1 1 1 1 1 1]);
 W = diag([360 430 420 404 530 481]);
-KTV = diag([1 1 1 1 1 1]);                          %Guadagno trasduttore velocità
-KTP = diag([1 1 1 1 1 1]);                          %Guadagno trasduttore posizione
+KTV = diag([300 1 1 1 1 1]);                          %Guadagno trasduttore velocità
+KTP = diag([100 1 1 1 1 1]);                          %Guadagno trasduttore posizione
 KCP = diag([(KTV(1,1)*W(1,1))/(2*KTP(1,1)*Z(1,1)),... %Guadagno controllore in posizione
             (KTV(2,2)*W(2,2))/(2*KTP(2,2)*Z(2,2)),...
             (KTV(3,3)*W(3,3))/(2*KTP(3,3)*Z(3,3)),...
@@ -47,7 +48,7 @@ figure, step(W), title(strcat('giunto',num2str(i)))
 % Digitale
 Fd = F*exp(-s*Td/2)
 figure, margin(Fd), title(strcat('delay giunto',num2str(i)))
-W = minreal((1/H)/(1+1/F))
+W = minreal((Fd/H)/(1+Fd))
 figure, step(W), title(strcat('delay_giunto',num2str(i)))
 %% Giunto 2 
 giunto = 2;

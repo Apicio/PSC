@@ -5,9 +5,8 @@ load('Bconst.mat');
 ParametriMotori
 cd ..
 Td = 1/500;
-rlkcv = [1 1 1 1 1 1];
 I = Kr^-1*Bconst*Kr^-1;
-Tm = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
+TM = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
 KM = Kv^-1;                     %Guadagno sistema
 % syms z w ktv kp ktp km kv ktp ka kta xr
 % eq1 = 2*z/w - ktv/(kp*ktp)
@@ -18,8 +17,9 @@ KM = Kv^-1;                     %Guadagno sistema
 % S.kv = (2*km*kta*w*xr*z)/(ktv*(- w^2 + km*xr))
 % S.ka = (- w^2 + km*xr)/(km*kta*w^2)
 
+rlkcv = [1.9974 1.9307 2.0798 2.0068 1.6911 1.8684];
 Z = diag([1 1 1 1 1 1]);
-W = 0.8.*diag([360 430 420 404 530 481]);
+W = 0.42.*diag([360 430 420 404 530 481]);
 XR = 10^7.*diag([1 1 1 1 1 1]);
 
 KTV = diag([1 1 1 1 1 1]); % Guadagno trasduttore in velocità
@@ -44,32 +44,29 @@ KCA = diag([(-W(1,1)^2 + KM(1,1)*XR(1,1))/(KM(1,1)*KTA(1,1)*W(1,1)^2),...  % Gua
             (-W(4,4)^2 + KM(4,4)*XR(4,4))/(KM(4,4)*KTA(4,4)*W(4,4)^2),...
             (-W(5,5)^2 + KM(5,5)*XR(5,5))/(KM(5,5)*KTA(5,5)*W(5,5)^2),...
             (-W(6,6)^2 + KM(6,6)*XR(6,6))/(KM(6,6)*KTA(6,6)*W(6,6)^2)]);
-TCA = diag([Tm(1,1) Tm(2,2) Tm(3,3) Tm(4,4) Tm(5,5) Tm(6,6)]); % Costante di tempo controllore accelerazione
+TCA = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]); % Costante di tempo controllore accelerazione
 save('Z.mat','Z'), save('W.mat','W'), save('XR.mat','XR'), save('TCA.mat','TCA');
 save('KTV.mat','KTV'), save('KTP.mat','KTP'), save('KTA.mat','KTA');
 save('KCP.mat','KCP'),save('KCV.mat','KCV'),  save('KCA.mat','KCA');
 save('KM.mat','KM')
 s = tf('s');
 %% Definizione controllori %%
-F0 = ((eye(6,6) + KM*KCA*KTA)*(TCA*Tm^-1))/(eye(6,6)+KM*KCA*KTA)
-F1 = KCP*KCA*KCV;
-F2 = (eye(6,6)+s*TCA)/s
-F3 = KM/((eye(6,6) +KM*KCA*KTA)*(eye(6,6)+s*Tm))
-F4 = KTP/s;
-F5 = eye(6,6) + s*KTV/(KCP*KTP);
-F =F0*F1*F2*F3*F4*F5;
-% zpk(F*ones(6,1));
-H = KTP*(eye(6,6) + s*KTV)/(KCP*KTP);
-% W = minreal((H^-1)/(eye(6,6)+F^-1))
-% W = W*ones(6,1)
-% for i =1,6
-%     figure, step(W), title(strcat('giunto',num2str(i)))
-% end
+G = KM/((eye(6,6)+KM*KCA*KTA)*(eye(6,6)+s*TM*((eye(6,6)+KM*KCA*KTA*(TCA/TM))/(eye(6,6)+KM*KCA*KTA))));
+P = G/s;
+C = KCP*KCV*KCA*((eye(6,6)+s*TCA)/(s));
+H = KTP*(eye(6,6) + (s*KTV)/(KCP*KTP));
+F = C*P*H;
+W = minreal((H^-1)/(eye(6,6)+F^-1));
 % Digitale
-Fd = F*exp(-s*Td/2)
-Wd = minreal((Fd*H^-1)/(eye(6,6)+Fd))
-Wd = Wd*ones(6,1)
-for i = 1,6
-figure, step(Wd), title(strcat('delay giunto',num2str(i)))
+Fd = minreal(F*exp(-s*Td/2));
+Fd = Fd*ones(6,1);
+
+for i=1:6
+    figure, subplot(121), step(W(i,i))
+    Wd(i) = minreal((Fd(i)*H(i,i)^-1)/(1+Fd(i)));
+    subplot(122), step(Wd(i))
 end
-rltool(Fd(2,2))
+
+i = 6
+rltool(Fd(i,i))
+

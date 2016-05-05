@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.922"
+    ComputedModelVersion    "1.928"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -54,16 +54,46 @@ Model {
 	$ClassName		"Simulink.ExplorerBarInfo"
 	Visible			[1]
       }
-      Object {
-	$PropName		"EditorsInfo"
-	$ObjectID		5
-	$ClassName		"Simulink.EditorInfo"
-	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"934"
-	Extents			[1886.0, 881.0]
-	ZoomFactor		[0.8]
-	Offset			[179.0677143161497, -122.83333333333314]
+      Array {
+	Type			"Simulink.EditorInfo"
+	Dimension		4
+	Object {
+	  $ObjectID		  5
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkTopLevel"
+	  LoadSaveID		  "0"
+	  Extents		  [1886.0, 878.0]
+	  ZoomFactor		  [1.25]
+	  Offset		  [-7.2000000000000455, 0.0]
+	}
+	Object {
+	  $ObjectID		  6
+	  IsActive		  [1]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "37"
+	  Extents		  [1886.0, 878.0]
+	  ZoomFactor		  [1.25]
+	  Offset		  [10.750000000000568, 335.59999999999997]
+	}
+	Object {
+	  $ObjectID		  7
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "387"
+	  Extents		  [1886.0, 878.0]
+	  ZoomFactor		  [1.11]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  8
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "998"
+	  Extents		  [1886.0, 878.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [235.75, 110.125]
+	}
+	PropName		"EditorsInfo"
       }
     }
   }
@@ -73,9 +103,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Gianluigi"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu May 05 22:35:56 2016"
-  RTWModifiedTimeStamp	  384388502
-  ModelVersionFormat	  "1.%<AutoIncrement:922>"
+  LastModifiedDate	  "Fri May 06 00:47:26 2016"
+  RTWModifiedTimeStamp	  384396413
+  ModelVersionFormat	  "1.%<AutoIncrement:928>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -123,7 +153,7 @@ Model {
   TryForcingSFcnDF	  off
   Object {
     $PropName		    "DataLoggingOverride"
-    $ObjectID		    6
+    $ObjectID		    9
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "SchemaControlloDecentralizzatoSmartSixR2013a"
     Array {
@@ -166,13 +196,13 @@ Model {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      7
+      $ObjectID		      10
       Version		      "1.16.2"
       Array {
 	Type			"Handle"
 	Dimension		9
 	Simulink.SolverCC {
-	  $ObjectID		  8
+	  $ObjectID		  11
 	  Version		  "1.16.2"
 	  StartTime		  "0.0"
 	  StopTime		  "t(end)+Tf"
@@ -200,7 +230,7 @@ Model {
 	  ZeroCrossControl	  "UseLocalSettings"
 	  ZeroCrossAlgorithm	  "Nonadaptive"
 	  AlgebraicLoopSolver	  "TrustRegion"
-	  SolverInfoToggleStatus  off
+	  SolverInfoToggleStatus  on
 	  IsAutoAppliedInSIP	  off
 	  SolverResetMethod	  "Fast"
 	  PositivePriorityOrder	  off
@@ -209,7 +239,7 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  9
+	  $ObjectID		  12
 	  Version		  "1.16.2"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
@@ -247,7 +277,7 @@ Model {
 	  LoggingIntervals	  "[-inf, inf]"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  10
+	  $ObjectID		  13
 	  Version		  "1.16.2"
 	  Array {
 	    Type		    "Cell"
@@ -304,7 +334,7 @@ Model {
 	  AccelVerboseBuild	  off
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  11
+	  $ObjectID		  14
 	  Version		  "1.16.2"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -399,7 +429,7 @@ Model {
 	  AllowAutomaticUnitConversions	on
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  12
+	  $ObjectID		  15
 	  Version		  "1.16.2"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -441,7 +471,7 @@ Model {
 	  UseSimulinkCoderFeatures on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  13
+	  $ObjectID		  16
 	  Version		  "1.16.2"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  EnableRefExpFcnMdlSchedulingChecks on
@@ -457,7 +487,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  14
+	  $ObjectID		  17
 	  Version		  "1.16.2"
 	  SFSimEcho		  on
 	  SimCtrlC		  on
@@ -469,7 +499,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  15
+	  $ObjectID		  18
 	  Version		  "1.16.2"
 	  Array {
 	    Type		    "Cell"
@@ -534,7 +564,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      16
+	      $ObjectID		      19
 	      Version		      "1.16.2"
 	      Array {
 		Type			"Cell"
@@ -603,7 +633,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      17
+	      $ObjectID		      20
 	      Version		      "1.16.2"
 	      Array {
 		Type			"Cell"
@@ -690,7 +720,7 @@ Model {
 	  }
 	}
 	SlCovCC.ConfigComp {
-	  $ObjectID		  18
+	  $ObjectID		  21
 	  Version		  "1.16.2"
 	  Description		  "Simulink Coverage Configuration Component"
 	  Name			  "Simulink Coverage"
@@ -732,11 +762,11 @@ Model {
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    7
+    $ObjectID		    10
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    19
+    $ObjectID		    22
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -1030,7 +1060,7 @@ Model {
   System {
     Name		    "SchemaControlloDecentralizzatoSmartSixR2013a"
     Location		    [-8, -8, 1928, 1048]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1088,7 +1118,7 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		20
+	$ObjectID		23
 	$ClassName		"Simulink.Mask"
 	Display			"disp('Contributi Coppie');\nport_label('input', 1, 'qDH');\nport_label('input', 2, 'dqDH');\nport_label('i"
 	"nput', 3, 'ddqDH');\nport_label('output', 1, 'Coppie Complessive');\nport_label('output', 2, 'Disturbo lato motori');"
@@ -1595,7 +1625,7 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		21
+	$ObjectID		24
 	$ClassName		"Simulink.Mask"
 	Display			"disp('Controllo');\nport_label('input', 1, 'disturbo');\nport_label('input', 2, 'qDHd');\nport_label('inpu"
 	"t', 3, 'dqDHd');\nport_label('output', 1, 'qDH');\nport_label('output', 2, 'dqDH');\nport_label('output', 3, 'ddqDH')"
@@ -1604,7 +1634,7 @@ Model {
       System {
 	Name			"Subsystem3"
 	Location		[-8, -8, 1928, 1048]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1615,7 +1645,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"125"
 	Block {
 	  BlockType		  Inport
 	  Name			  "disturbo"
@@ -1683,7 +1713,7 @@ Model {
 	  Name			  "Converte da ccelerazioni  desiderate DH ai link \nin velocita' lato motore"
 	  SID			  "366"
 	  Ports			  [1, 1]
-	  Position		  [130, 755, 190, 785]
+	  Position		  [140, 755, 200, 785]
 	  ZOrder		  -8
 	  MATLABFcn		  "(Kr)*(u)"
 	}
@@ -2561,11 +2591,11 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    22
+	    $ObjectID		    25
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      23
+	      $ObjectID		      26
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "i"
@@ -2805,7 +2835,7 @@ Model {
 	      System {
 		Name			"Modello Motore"
 		Location		[-8, -8, 1928, 1048]
-		Open			on
+		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
 		ScreenColor		"white"
@@ -2865,6 +2895,7 @@ Model {
 		  Position		  [1010, 140, 1040, 170]
 		  ZOrder		  30
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Integrator
@@ -2883,6 +2914,7 @@ Model {
 		  Position		  [960, 555, 990, 585]
 		  ZOrder		  43
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Gain
@@ -2918,7 +2950,6 @@ Model {
 		  SID			  "940"
 		  Position		  [1235, 257, 1265, 293]
 		  ZOrder		  4
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -2926,7 +2957,6 @@ Model {
 		  SID			  "941"
 		  Position		  [1235, 342, 1265, 378]
 		  ZOrder		  5
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -2934,7 +2964,6 @@ Model {
 		  SID			  "942"
 		  Position		  [1235, 452, 1265, 488]
 		  ZOrder		  6
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  Gain
@@ -3072,10 +3101,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  17
 		  SrcBlock		  "Integrator"
 		  SrcPort		  1
@@ -3112,10 +3137,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  20
 		  SrcBlock		  "Kv"
 		  SrcPort		  1
@@ -3124,10 +3145,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  27
 		  SrcBlock		  "In1"
 		  SrcPort		  1
@@ -3145,10 +3162,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  22
 		  SrcBlock		  "Sum4"
 		  SrcPort		  1
@@ -3156,10 +3169,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  23
 		  SrcBlock		  "Transfer Fcn"
 		  SrcPort		  1
@@ -3167,10 +3176,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  24
 		  SrcBlock		  "FM"
 		  SrcPort		  1
@@ -3722,10 +3727,6 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      FontName		      "Helvetica"
-	      FontSize		      9
-	      FontWeight	      "normal"
-	      FontAngle		      "normal"
 	      ZOrder		      158
 	      SrcBlock		      "Acceleration Controller"
 	      SrcPort		      1
@@ -3803,11 +3804,11 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    24
+	    $ObjectID		    27
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      25
+	      $ObjectID		      28
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "i"
@@ -4107,6 +4108,7 @@ Model {
 		  Position		  [1010, 140, 1040, 170]
 		  ZOrder		  30
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Integrator
@@ -4125,6 +4127,7 @@ Model {
 		  Position		  [960, 555, 990, 585]
 		  ZOrder		  43
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Gain
@@ -4160,7 +4163,6 @@ Model {
 		  SID			  "975"
 		  Position		  [1235, 257, 1265, 293]
 		  ZOrder		  4
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -4168,7 +4170,6 @@ Model {
 		  SID			  "976"
 		  Position		  [1235, 342, 1265, 378]
 		  ZOrder		  5
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -4176,7 +4177,6 @@ Model {
 		  SID			  "977"
 		  Position		  [1235, 452, 1265, 488]
 		  ZOrder		  6
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  Gain
@@ -4314,10 +4314,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  4
 		  SrcBlock		  "Integrator"
 		  SrcPort		  1
@@ -4354,10 +4350,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  11
 		  SrcBlock		  "Kv"
 		  SrcPort		  1
@@ -4366,10 +4358,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  12
 		  SrcBlock		  "In1"
 		  SrcPort		  1
@@ -4387,10 +4375,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  15
 		  SrcBlock		  "Sum4"
 		  SrcPort		  1
@@ -4398,10 +4382,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  16
 		  SrcBlock		  "Transfer Fcn"
 		  SrcPort		  1
@@ -4409,10 +4389,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  17
 		  SrcBlock		  "FM"
 		  SrcPort		  1
@@ -4964,10 +4940,6 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      FontName		      "Helvetica"
-	      FontSize		      9
-	      FontWeight	      "normal"
-	      FontAngle		      "normal"
 	      ZOrder		      165
 	      SrcBlock		      "Acceleration Controller"
 	      SrcPort		      1
@@ -5045,11 +5017,11 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    26
+	    $ObjectID		    29
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      27
+	      $ObjectID		      30
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "i"
@@ -5060,7 +5032,7 @@ Model {
 	  System {
 	    Name		    "Schema Motore 3"
 	    Location		    [-8, -8, 1928, 1048]
-	    Open		    off
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -5288,8 +5260,8 @@ Model {
 	      Variant		      off
 	      System {
 		Name			"Modello Motore"
-		Location		[953, 0, 1927, 1047]
-		Open			off
+		Location		[-8, -8, 1928, 1048]
+		Open			on
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
 		ScreenColor		"white"
@@ -5300,7 +5272,7 @@ Model {
 		TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
-		ZoomFactor		"80"
+		ZoomFactor		"100"
 		Block {
 		  BlockType		  Inport
 		  Name			  "dist"
@@ -5349,6 +5321,7 @@ Model {
 		  Position		  [1010, 140, 1040, 170]
 		  ZOrder		  30
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Integrator
@@ -5367,6 +5340,7 @@ Model {
 		  Position		  [960, 555, 990, 585]
 		  ZOrder		  43
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Gain
@@ -5402,7 +5376,6 @@ Model {
 		  SID			  "1008"
 		  Position		  [1235, 257, 1265, 293]
 		  ZOrder		  4
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -5410,7 +5383,6 @@ Model {
 		  SID			  "1009"
 		  Position		  [1235, 342, 1265, 378]
 		  ZOrder		  5
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -5418,7 +5390,6 @@ Model {
 		  SID			  "1010"
 		  Position		  [1235, 452, 1265, 488]
 		  ZOrder		  6
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  Gain
@@ -5556,10 +5527,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  4
 		  SrcBlock		  "Integrator"
 		  SrcPort		  1
@@ -5596,10 +5563,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  11
 		  SrcBlock		  "Kv"
 		  SrcPort		  1
@@ -5608,10 +5571,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  12
 		  SrcBlock		  "In1"
 		  SrcPort		  1
@@ -5629,10 +5588,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  15
 		  SrcBlock		  "Sum4"
 		  SrcPort		  1
@@ -5640,10 +5595,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  16
 		  SrcBlock		  "Transfer Fcn"
 		  SrcPort		  1
@@ -5651,10 +5602,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  17
 		  SrcBlock		  "FM"
 		  SrcPort		  1
@@ -6209,10 +6156,6 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      FontName		      "Helvetica"
-	      FontSize		      9
-	      FontWeight	      "normal"
-	      FontAngle		      "normal"
 	      ZOrder		      162
 	      SrcBlock		      "Acceleration Controller"
 	      SrcPort		      1
@@ -6291,11 +6234,11 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    28
+	    $ObjectID		    31
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      29
+	      $ObjectID		      32
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "i"
@@ -6534,7 +6477,7 @@ Model {
 	      Variant		      off
 	      System {
 		Name			"Modello Motore"
-		Location		[953, 0, 1927, 1047]
+		Location		[-8, -8, 1928, 1048]
 		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
@@ -6595,6 +6538,7 @@ Model {
 		  Position		  [1010, 140, 1040, 170]
 		  ZOrder		  30
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Integrator
@@ -6613,6 +6557,7 @@ Model {
 		  Position		  [960, 555, 990, 585]
 		  ZOrder		  43
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Gain
@@ -6648,7 +6593,6 @@ Model {
 		  SID			  "1041"
 		  Position		  [1235, 257, 1265, 293]
 		  ZOrder		  4
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -6656,7 +6600,6 @@ Model {
 		  SID			  "1042"
 		  Position		  [1235, 342, 1265, 378]
 		  ZOrder		  5
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -6664,7 +6607,6 @@ Model {
 		  SID			  "1043"
 		  Position		  [1235, 452, 1265, 488]
 		  ZOrder		  6
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  Gain
@@ -6802,10 +6744,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  4
 		  SrcBlock		  "Integrator"
 		  SrcPort		  1
@@ -6842,10 +6780,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  11
 		  SrcBlock		  "Kv"
 		  SrcPort		  1
@@ -6854,10 +6788,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  12
 		  SrcBlock		  "In1"
 		  SrcPort		  1
@@ -6875,10 +6805,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  15
 		  SrcBlock		  "Sum4"
 		  SrcPort		  1
@@ -6886,10 +6812,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  16
 		  SrcBlock		  "Transfer Fcn"
 		  SrcPort		  1
@@ -6897,10 +6819,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  17
 		  SrcBlock		  "FM"
 		  SrcPort		  1
@@ -7455,10 +7373,6 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      FontName		      "Helvetica"
-	      FontSize		      9
-	      FontWeight	      "normal"
-	      FontAngle		      "normal"
 	      ZOrder		      193
 	      SrcBlock		      "Acceleration Controller"
 	      SrcPort		      1
@@ -7537,11 +7451,11 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    30
+	    $ObjectID		    33
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      31
+	      $ObjectID		      34
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "i"
@@ -7780,7 +7694,7 @@ Model {
 	      Variant		      off
 	      System {
 		Name			"Modello Motore"
-		Location		[953, 0, 1927, 1047]
+		Location		[-8, -8, 1928, 1048]
 		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
@@ -7841,6 +7755,7 @@ Model {
 		  Position		  [1010, 140, 1040, 170]
 		  ZOrder		  30
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Integrator
@@ -7859,6 +7774,7 @@ Model {
 		  Position		  [960, 555, 990, 585]
 		  ZOrder		  43
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Gain
@@ -7894,7 +7810,6 @@ Model {
 		  SID			  "1074"
 		  Position		  [1235, 257, 1265, 293]
 		  ZOrder		  4
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -7902,7 +7817,6 @@ Model {
 		  SID			  "1075"
 		  Position		  [1235, 342, 1265, 378]
 		  ZOrder		  5
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -7910,7 +7824,6 @@ Model {
 		  SID			  "1076"
 		  Position		  [1235, 452, 1265, 488]
 		  ZOrder		  6
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  Gain
@@ -8048,10 +7961,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  4
 		  SrcBlock		  "Integrator"
 		  SrcPort		  1
@@ -8088,10 +7997,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  11
 		  SrcBlock		  "Kv"
 		  SrcPort		  1
@@ -8100,10 +8005,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  12
 		  SrcBlock		  "In1"
 		  SrcPort		  1
@@ -8121,10 +8022,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  15
 		  SrcBlock		  "Sum4"
 		  SrcPort		  1
@@ -8132,10 +8029,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  16
 		  SrcBlock		  "Transfer Fcn"
 		  SrcPort		  1
@@ -8143,10 +8036,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  17
 		  SrcBlock		  "FM"
 		  SrcPort		  1
@@ -8700,10 +8589,6 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      FontName		      "Helvetica"
-	      FontSize		      9
-	      FontWeight	      "normal"
-	      FontAngle		      "normal"
 	      ZOrder		      165
 	      SrcBlock		      "Acceleration Controller"
 	      SrcPort		      1
@@ -8782,11 +8667,11 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    32
+	    $ObjectID		    35
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      33
+	      $ObjectID		      36
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "i"
@@ -9025,7 +8910,7 @@ Model {
 	      Variant		      off
 	      System {
 		Name			"Modello Motore"
-		Location		[953, 0, 1927, 1047]
+		Location		[-8, -8, 1928, 1048]
 		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
@@ -9086,6 +8971,7 @@ Model {
 		  Position		  [1010, 140, 1040, 170]
 		  ZOrder		  30
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Integrator
@@ -9104,6 +8990,7 @@ Model {
 		  Position		  [960, 555, 990, 585]
 		  ZOrder		  43
 		  ShowName		  off
+		  InitialCondition	  "q0(i)"
 		}
 		Block {
 		  BlockType		  Gain
@@ -9139,7 +9026,6 @@ Model {
 		  SID			  "1107"
 		  Position		  [1235, 257, 1265, 293]
 		  ZOrder		  4
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -9147,7 +9033,6 @@ Model {
 		  SID			  "1108"
 		  Position		  [1235, 342, 1265, 378]
 		  ZOrder		  5
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  ManualSwitch
@@ -9155,7 +9040,6 @@ Model {
 		  SID			  "1109"
 		  Position		  [1235, 452, 1265, 488]
 		  ZOrder		  6
-		  CurrentSetting	  "0"
 		}
 		Block {
 		  BlockType		  Gain
@@ -9293,10 +9177,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  4
 		  SrcBlock		  "Integrator"
 		  SrcPort		  1
@@ -9333,10 +9213,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  11
 		  SrcBlock		  "Kv"
 		  SrcPort		  1
@@ -9345,10 +9221,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  12
 		  SrcBlock		  "In1"
 		  SrcPort		  1
@@ -9366,10 +9238,6 @@ Model {
 		  }
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  15
 		  SrcBlock		  "Sum4"
 		  SrcPort		  1
@@ -9377,10 +9245,6 @@ Model {
 		  DstPort		  1
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  16
 		  SrcBlock		  "Transfer Fcn"
 		  SrcPort		  1
@@ -9388,10 +9252,6 @@ Model {
 		  DstPort		  2
 		}
 		Line {
-		  FontName		  "Helvetica"
-		  FontSize		  9
-		  FontWeight		  "normal"
-		  FontAngle		  "normal"
 		  ZOrder		  17
 		  SrcBlock		  "FM"
 		  SrcPort		  1
@@ -9944,10 +9804,6 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      FontName		      "Helvetica"
-	      FontSize		      9
-	      FontWeight	      "normal"
-	      FontAngle		      "normal"
 	      ZOrder		      192
 	      SrcBlock		      "Acceleration Controller"
 	      SrcPort		      1
@@ -10020,9 +9876,8 @@ Model {
 	  Name			  "Transport\nDelay"
 	  SID			  "268"
 	  Ports			  [1, 1]
-	  Position		  [1395, 955, 1425, 985]
+	  Position		  [1405, 835, 1435, 865]
 	  ZOrder		  -109
-	  Commented		  "on"
 	  DelayTime		  "T"
 	}
 	Block {
@@ -10786,6 +10641,13 @@ Model {
 	Line {
 	  ZOrder		  108
 	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  DstBlock		  "Transport\nDelay"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  109
+	  SrcBlock		  "Transport\nDelay"
 	  SrcPort		  1
 	  DstBlock		  "Converte \nda accelerazioni lato motore \nad accelerazioni DH ai link"
 	  DstPort		  1

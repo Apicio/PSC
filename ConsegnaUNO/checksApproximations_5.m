@@ -1,4 +1,4 @@
-clear all; clc; close all;
+clearvars; clc; close all;
 %COMPUTETAU Summary of this function goes here
 %   Detailed explanation goes here
 cd utilis

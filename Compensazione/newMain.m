@@ -1,16 +1,15 @@
 clc; clear all; close all;
 load('traj.mat')
-%u = zeros(size(traj,1)-2,size(traj,2)-1);
-load('trajU.mat')
+u = zeros(size(traj,1),size(traj,2)-1);
 Fs = 500;
 dtraj = sgolayfilt(diff(traj)*Fs,1,17);
+dtraj = [zeros(1,7); dtraj];
 ddtraj = sgolayfilt(diff(dtraj)*Fs,1,17);
+ddtraj = [zeros(1,7); ddtraj];
 figure, plot(traj), figure, plot(dtraj), figure, plot(ddtraj);
 num = size(traj,1)-2;
-if ~exist('u')
-    parfor i=1:num
+parfor i=1:num
        u(i,:) = noiseCompensation(traj(i,1:6), dtraj(i,1:6), ddtraj(i,1:6))';
-    end
 end
 %% Grafici (cambiare fra ddtraj/dtraj/traj)
 figure; 

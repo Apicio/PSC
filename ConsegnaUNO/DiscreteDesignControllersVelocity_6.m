@@ -48,14 +48,12 @@ Fd = Fd*ones(6,1);
 
 for i=1:6
     figure, subplot(121), step(W(i,i))
-    Wd(i) = minreal((Fd(i)*H(i,i)^-1)/(1+Fd(i)));
+    Wd(i) = minreal( (Fd(i)*H(i,i)^-1)/(1+Fd(i)) );
     subplot(122), step(Wd(i))
 end
 
-i = 6
-rltool(Fd(i))
 
-% %% Giunto 1 
+% Giunto 1 
 % giunto = 1;
 % F1 = (KM(giunto,giunto)*KCP(giunto,giunto)*KCV(giunto,giunto)*(1+s*TCV(giunto,giunto)))/(s*s*(1+s*Tm(giunto,giunto)));
 % F2 = 1+ s*KTV(giunto,giunto)/(KCP(giunto,giunto)*KTP(giunto,giunto));

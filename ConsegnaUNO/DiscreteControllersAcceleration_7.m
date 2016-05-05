@@ -67,6 +67,6 @@ for i=1:6
     subplot(122), step(Wd(i))
 end
 
-i = 6
+i = 5
 rltool(Fd(i))
 

@@ -68,5 +68,5 @@ for i=1:6
 end
 
 i = 6
-rltool(Fd(i,i))
+rltool(Fd(i))
 

@@ -7,7 +7,7 @@ ParametriMotori
 cd ..
 Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
-Tm = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
+TM = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
 KM = Kv^-1;                     %Guadagno sistema
 % syms z w ktv kp ktp km kv ktp ka kta xr
 % eq1 = 2*z/w - ktv/(kp*ktp)
@@ -44,24 +44,24 @@ KCA = diag([(-W(1,1)^2 + KM(1,1)*XR(1,1))/(KM(1,1)*KTA(1,1)*W(1,1)^2),...  % Gua
             (-W(4,4)^2 + KM(4,4)*XR(4,4))/(KM(4,4)*KTA(4,4)*W(4,4)^2),...
             (-W(5,5)^2 + KM(5,5)*XR(5,5))/(KM(5,5)*KTA(5,5)*W(5,5)^2),...
             (-W(6,6)^2 + KM(6,6)*XR(6,6))/(KM(6,6)*KTA(6,6)*W(6,6)^2)]);
-TCA = diag([Tm(1,1) Tm(2,2) Tm(3,3) Tm(4,4) Tm(5,5) Tm(6,6)]); % Costante di tempo controllore accelerazione
-
+TCA = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]); % Costante di tempo controllore accelerazione
 s = tf('s');
 %% Definizione controllori %%
-KCV = diag(KCV)
-F0 = ((eye(6,6) + KM*KCA*KTA)*(TCA*Tm^-1))/(eye(6,6)+KM*KCA*KTA)
-F1 = KCP*KCA*KCV;
-F2 = (eye(6,6)+s*TCA)/s
-F3 = KM/((eye(6,6) +KM*KCA*KTA)*(eye(6,6)+s*Tm))
-F4 = KTP/s;
-F5 = eye(6,6) + s*KTV/(KCP*KTP);
-F =F0*F1*F2*F3*F4*F5;
-zpk(F*ones(6,1));
-H = KTP*(eye(6,6) + s*KTV)/(KCP*KTP);
-W = minreal((H^-1)/(eye(6,6)+F^-1))
-W = W*ones(6,1)
-figure, step(W), title(strcat('giunto',num2str(i)))
+G = KM/((eye(6,6)+KM*KCA*KTA)*(eye(6,6)+s*TM*((eye(6,6)+KM*KCA*KTA*(TCA/TM))/(eye(6,6)+KM*KCA*KTA))));
+P = G/s;
+C = KCP*KCV*KCA*((eye(6,6)+s*TCA)/(s));
+H = KTP*(eye(6,6) + (s*KTV)/(KCP*KTP));
+F = C*P*H;
+W = minreal((H^-1)/(eye(6,6)+F^-1));
+% Digitale
+Fd = minreal(F*exp(-s*Td/2));
+Fd = Fd*ones(6,1);
 
+for i=1:6
+    figure, subplot(121), step(W(i,i))
+    Wd(i) = minreal((Fd(i)*H(i,i)^-1)/(1+Fd(i)));
+    subplot(122), step(Wd(i))
+end
 
 % %% Giunto 2 
 % giunto = 2;

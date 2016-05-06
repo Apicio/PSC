@@ -14,9 +14,13 @@ load('traj.mat')
 load('Bconst.mat')
 load('Fv.mat')
 load('trajU.mat')
+Tf = 1/500; Ff = 1/Tf; T = Tf;
 ParametriMotori
-
-Tf = 1/500; Ff = 1/Tf;
+%81576
+num_el = size(traj,1);
+t = 0:Tf:(num_el*Tf-Tf);
+w = 1;
+traj = [sin(w*t);sin(w*t);sin(w*t);sin(w*t);sin(w*t);sin(w*t);sin(w*t)]';
 dtraj = sgolayfilt(diff(traj)*Ff,1,17);
 dtraj = [zeros(1,7); dtraj];
 ddtraj = sgolayfilt(diff(dtraj)*Ff,1,17);
@@ -38,11 +42,11 @@ dtraj = [t', dtraj];
 ddtraj = [t', ddtraj];
 
 q0 = Kr*traj(1,2:end)';
-q0 = q0'
+q0 = q0';
+dist = zeros(81576,6);
+Im = Kr^-1*Bconst*Kr^-1;
 
-Im = Kr^-1*Bconst*Kr^-1
-T = Tf
-FM = Kr^-1*Fv*Kr^-1
+FM = Kr^-1*Fv*Kr^-1;
 
 dist = [t', dist];
 

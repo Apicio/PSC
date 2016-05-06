@@ -20,15 +20,16 @@ ParametriMotori
 num_el = size(traj,1);
 t = 0:Tf:(num_el*Tf-Tf);
 w = 1;
-traj = [sin(w*t);sin(w*t);sin(w*t);sin(w*t);sin(w*t);sin(w*t);sin(w*t)]';
+joint = linspace(0,3,81576);
+traj = [joint;joint;joint;joint;joint;joint;joint]';
 dtraj = sgolayfilt(diff(traj)*Ff,1,17);
-dtraj = [zeros(1,7); dtraj];
 ddtraj = sgolayfilt(diff(dtraj)*Ff,1,17);
-ddtraj = [zeros(1,7); ddtraj];
+dtraj = dtraj(2:end,:);
+traj = traj(2:end-1,:);
 
-% rlkcv = [1.9974 1.9307 2.0798 2.0068 1.6911 1.8684];
-% rKCV = diag(rlkcv)
-% KCV = KCV*rKCV^-1
+rlkcv = [1.9974 1.9307 2.0798 2.0068 1.6911 1.8684];
+rKCV = diag(rlkcv)
+KCV = KCV*rKCV^-1
 
 num_el = size(traj,1);
 t = 0:Tf:(num_el*Tf-Tf);
@@ -37,18 +38,18 @@ traj = traj(:,1:end-1);
 dtraj = dtraj(:,1:end-1);
 ddtraj = ddtraj(:,1:end-1);
 
+q0 = Kr*traj(1,1:end)';
+q0 = q0';
+
 traj = [t', traj];
 dtraj = [t', dtraj];
 ddtraj = [t', ddtraj];
 
-q0 = Kr*traj(1,2:end)';
-q0 = q0';
-dist = zeros(81576,6);
 Im = Kr^-1*Bconst*Kr^-1;
 
 FM = Kr^-1*Fv*Kr^-1;
 
-dist = [t', dist];
+dist = [t', dist(3:end,:)];
 
 cd 'ModelloSix'
 % Kp + Ki/s = (s*Kp+Ki)/s

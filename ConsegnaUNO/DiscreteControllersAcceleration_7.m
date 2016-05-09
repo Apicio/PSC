@@ -17,9 +17,9 @@ KM = Kv^-1;                     %Guadagno sistema
 % S.kv = (2*km*kta*w*xr*z)/(ktv*(- w^2 + km*xr))
 % S.ka = (- w^2 + km*xr)/(km*kta*w^2)
 
-rlkcv = [1.9974 1.9307 2.0798 2.0068 1.6911 1.8684];
+rlkcv = [2.3336 2.3206 2.3295 2.3279 2.3279 2.3279];
 Z = diag([1 1 1 1 1 1]);
-W = 0.42.*diag([360 430 420 404 530 481]);
+W = 0.42.*diag([300 300 300 300 300 300]);
 XR = 10^7.*diag([1 1 1 1 1 1]);
 
 KTV = diag([1 1 1 1 1 1]); % Guadagno trasduttore in velocità
@@ -64,9 +64,6 @@ Fd = Fd*ones(6,1);
 for i=1:6
     figure, subplot(121), step(W(i,i))
     Wd(i) = minreal((Fd(i)*H(i,i)^-1)/(1+Fd(i)));
-    subplot(122), step(Wd(i))
+    %subplot(132), step(Wd(i))
+    subplot(122), step(c2d(W(i,i),Td,'zoh'));
 end
-
-i = 5
-rltool(Fd(i))
-

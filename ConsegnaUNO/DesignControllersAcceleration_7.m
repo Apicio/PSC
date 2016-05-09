@@ -19,7 +19,7 @@ KM = Kv^-1;                     %Guadagno sistema
 % S.ka = (- w^2 + km*xr)/(km*kta*w^2)
 
 Z = diag([1 1 1 1 1 1]);
-W = 0.7.*diag([360 430 420 404 530 481]);
+W = diag([300 300 300 300 300 300]);
 XR = 10^7.*diag([1 1 1 1 1 1]); %TO ASK: Molto grande, sia in acc che in vel.
 
 KTV = diag([1 1 1 1 1 1]); % Guadagno trasduttore in velocità

@@ -5,6 +5,7 @@ cd utilis
 ParametriMotori
 load('Fv.mat');
 load('Bconst.mat');
+cd ..
 %tauAmp = L/R
 %tauMecc = I/Fm = (bi/kri^2)/(fv/kri^2) = bi/fv
 tauAmp = zeros(1,6);

@@ -3,7 +3,6 @@ close all; clearvars;
 cd utilis
 load('Bconst.mat');
 ParametriMotori
-cd ..
 Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
 TM = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
@@ -49,6 +48,7 @@ save('Z.mat','Z'), save('W.mat','W'), save('XR.mat','XR'), save('TCA.mat','TCA')
 save('KTV.mat','KTV'), save('KTP.mat','KTP'), save('KTA.mat','KTA');
 save('KCP.mat','KCP'),save('KCV.mat','KCV'),  save('KCA.mat','KCA');
 save('KM.mat','KM')
+cd ..
 s = tf('s');
 %% Definizione controllori %%
 G = KM/((eye(6,6)+KM*KCA*KTA)*(eye(6,6)+s*TM*((eye(6,6)+KM*KCA*KTA*(TCA/TM))/(eye(6,6)+KM*KCA*KTA))));

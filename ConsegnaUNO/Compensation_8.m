@@ -5,18 +5,19 @@ load('Bconst.mat')
 load('Fv.mat')
 ParametriMotori
 cd ..
-u = zeros(size(Traj,1)-2,size(Traj,2)-1);
 Fs = 500;
 dtraj = sgolayfilt(diff(Traj)*Fs,1,17);
 ddtraj = sgolayfilt(diff(dtraj)*Fs,1,17);
 figure, plot(Traj), figure, plot(dtraj), figure, plot(ddtraj);
 num = size(Traj,1)-2;
+u = zeros(num,6);
 parfor i=1:num
     u(i,:) = noiseCompensation(Traj(i,1:6), dtraj(i,1:6), ddtraj(i,1:6))';
 end
 I = Kr^-1*Bconst*Kr^-1;
 Fm = Kr^-1*Fv*Kr^-1;
-parfor i=1:num
+tau = zeros(num,6);
+for i=1:num
     ddqm = Kr*ddtraj(i,1:6)';
     dqm = Kr*dtraj(i,1:6)';
     tau(i,:) = I*ddqm + Fm*dqm;

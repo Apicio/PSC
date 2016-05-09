@@ -2,9 +2,9 @@ close all; clearvars;
 %% Inizializzazione Parametri
 cd utilis
 load('Bconst.mat');
-
+load('traj.mat')
 ParametriMotori
-cd ..
+
 Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
 TM = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
@@ -45,6 +45,11 @@ KCA = diag([(-W(1,1)^2 + KM(1,1)*XR(1,1))/(KM(1,1)*KTA(1,1)*W(1,1)^2),...  % Gua
             (-W(5,5)^2 + KM(5,5)*XR(5,5))/(KM(5,5)*KTA(5,5)*W(5,5)^2),...
             (-W(6,6)^2 + KM(6,6)*XR(6,6))/(KM(6,6)*KTA(6,6)*W(6,6)^2)]);
 TCA = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]); % Costante di tempo controllore accelerazione
+save('Z.mat','Z'), save('W.mat','W'), save('XR.mat','XR'), save('TCA.mat','TCA');
+save('KTV.mat','KTV'), save('KTP.mat','KTP'), save('KTA.mat','KTA');
+save('KCP.mat','KCP'),save('KCV.mat','KCV'),  save('KCA.mat','KCA');
+save('KM.mat','KM'), save('W_trans.mat','W');
+cd ..
 s = tf('s');
 %% Definizione controllori %%
 G = KM/((eye(6,6)+KM*KCA*KTA)*(eye(6,6)+s*TM*((eye(6,6)+KM*KCA*KTA*(TCA/TM))/(eye(6,6)+KM*KCA*KTA))));
@@ -61,6 +66,22 @@ for i=1:6
     figure, subplot(121), step(W(i,i))
     Wd(i) = minreal((Fd(i)*H(i,i)^-1)/(1+Fd(i)));
     subplot(122), step(Wd(i))
+end
+
+num_el = size(Traj,1);
+t = 0:Td:(num_el*Td-Td);
+for i=1:6
+    sim = lsim(W(i,i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
+end
+
+for i=1:6
+    sim = lsim(Wd(i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
 end
 
 % %% Giunto 2 

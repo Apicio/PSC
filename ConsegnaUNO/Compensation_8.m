@@ -4,14 +4,13 @@ load('traj.mat')
 load('Bconst.mat')
 load('Fv.mat')
 ParametriMotori
-cd ..
 Fs = 500;
 dtraj = sgolayfilt(diff(Traj)*Fs,1,17);
 ddtraj = sgolayfilt(diff(dtraj)*Fs,1,17);
 figure, plot(Traj), figure, plot(dtraj), figure, plot(ddtraj);
 num = size(Traj,1)-2;
 u = zeros(num,6);
-parfor i=1:num
+for i=1:num
     u(i,:) = noiseCompensation(Traj(i,1:6), dtraj(i,1:6), ddtraj(i,1:6))';
 end
 I = Kr^-1*Bconst*Kr^-1;
@@ -31,3 +30,4 @@ subplot(324); plot(tau(:,4)); hold on; plot(u(:,4)); hold on; plot(u(:,4)/10^6);
 subplot(325); plot(tau(:,5)); hold on; plot(u(:,5)); hold on; plot(u(:,5)/10^6);
 subplot(326); plot(tau(:,6)); hold on; plot(u(:,6)); hold on; plot(u(:,6)/10^6);
 save('u_out.mat','u')
+cd ..

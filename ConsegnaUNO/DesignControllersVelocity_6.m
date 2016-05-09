@@ -1,7 +1,8 @@
 close all; clearvars;
 %% Inizializzazione Parametri
-load('utilis/Bconst.mat');
 cd utilis
+load('Bconst.mat');
+load('traj.mat')
 ParametriMotori
 Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
@@ -49,8 +50,21 @@ for i=1:6
     subplot(122), step(Wd(i))
 end
 
-i = 1
-rltool(Fd(i))
+num_el = size(Traj,1);
+t = 0:Td:(num_el*Td-Td);
+for i=1:6
+    sim = lsim(W(i,i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
+end
+
+for i=1:6
+    sim = lsim(Wd(i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
+end
 
 % 
 % %% Giunto 2 

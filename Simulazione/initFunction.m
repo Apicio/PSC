@@ -18,9 +18,11 @@ Tf = 1/500; Ff = 1/Tf; T = Tf;
 ParametriMotori
 %81576
 num_el = size(traj,1);
-t = 0:Tf:(num_el*Tf-Tf);
-w = 100;
-joint = 10*sin(w*t);
+% t = 0:Tf:(num_el*Tf-Tf);
+% w = 100;
+% joint = 10*sin(w*t);
+
+
 traj = [joint;joint;joint;joint;joint;joint;joint]';
 dtraj = sgolayfilt(diff(traj)*Ff,1,17);
 ddtraj = sgolayfilt(diff(dtraj)*Ff,1,17);

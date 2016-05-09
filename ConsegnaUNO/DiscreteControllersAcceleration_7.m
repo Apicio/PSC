@@ -2,6 +2,7 @@ close all; clearvars;
 %% Inizializzazione Parametri
 cd utilis
 load('Bconst.mat');
+load('traj.mat')
 ParametriMotori
 Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
@@ -47,7 +48,7 @@ TCA = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]); % Costante di tem
 save('Z.mat','Z'), save('W.mat','W'), save('XR.mat','XR'), save('TCA.mat','TCA');
 save('KTV.mat','KTV'), save('KTP.mat','KTP'), save('KTA.mat','KTA');
 save('KCP.mat','KCP'),save('KCV.mat','KCV'),  save('KCA.mat','KCA');
-save('KM.mat','KM')
+save('KM.mat','KM'), save('W_transAccel.mat','W');
 cd ..
 s = tf('s');
 %% Definizione controllori %%
@@ -66,4 +67,20 @@ for i=1:6
     Wd(i) = minreal((Fd(i)*H(i,i)^-1)/(1+Fd(i)));
     %subplot(132), step(Wd(i))
     subplot(122), step(c2d(W(i,i),Td,'zoh'));
+end
+
+num_el = size(Traj,1);
+t = 0:Td:(num_el*Td-Td);
+for i=1:6
+    sim = lsim(W(i,i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
+end
+
+for i=1:6
+    sim = lsim(Wd(i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
 end

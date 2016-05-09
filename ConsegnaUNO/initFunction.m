@@ -22,9 +22,10 @@ Tf = 1/500; Ff = 1/Tf; T = Tf;
 %81576
 num_el = size(Traj,1);
 t = 0:Tf:(num_el*Tf-Tf);
-w = 100;
-joint = 10*sin(w*t);
-traj = [joint;joint;joint;joint;joint;joint;joint]';
+% w = 1;
+% joint = 10*sin(w*t);
+% traj = [joint;joint;joint;joint;joint;joint;joint]';
+
 dtraj = sgolayfilt(diff(Traj)*Ff,1,17);
 ddtraj = sgolayfilt(diff(dtraj)*Ff,1,17);
 dtraj = dtraj(2:end,:);

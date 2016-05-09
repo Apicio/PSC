@@ -1,9 +1,9 @@
 close all; clearvars;
 %% Inizializzazione Parametri
-load('utilis/Bconst.mat');
 cd utilis
+load('Bconst.mat');
+load('traj.mat')
 ParametriMotori
-cd ..
 Td = 1/500;
 I = Kr^-1*Bconst*Kr^-1;
 TM = I*Ra*Kt^-1*Kv^-1;          %Cosante di tempo sistema
@@ -35,6 +35,8 @@ KCV = diag([rlkcv(1)*(2*W(1,1)*Z(1,1))/(KM(1,1)*KTV(1,1)),...
             rlkcv(6)*(2*W(6,6)*Z(6,6))/(KM(6,6)*KTV(6,6))]);   %Guadagno controllore in velocità
 TCV = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]);  %Costante di tempo controllore
 XR = KCP*KTP*KCV;
+save('W_transVelocity.mat','W');
+cd ..
 s = tf('s');
 %% Progettazione
 C = (KCP*KCV/s)*(s*TCV+eye(6,6));
@@ -51,6 +53,22 @@ for i=1:6
     Wd(i) = minreal((Fd(i)*H(i,i)^-1)/(1+Fd(i)));
     %subplot(132), step(Wd(i))
     subplot(122), step(c2d(W(i,i),Td,'zoh'));
+end
+
+num_el = size(Traj,1);
+t = 0:Td:(num_el*Td-Td);
+for i=1:6
+    sim = lsim(W(i,i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
+end
+
+for i=1:6
+    sim = lsim(Wd(i),Traj(:,i),t);
+    err = sim-Traj(:,i);
+    figure, subplot(121), plot(sim);
+    subplot(122), plot(err)
 end
 
 

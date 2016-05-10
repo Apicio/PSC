@@ -11,7 +11,7 @@ load('XR.mat')
 load('Z.mat')
 load('KCA.mat')
 load('KM.mat')
-load('traj.mat')
+load('traj.mat'); traj = Traj; 
 load('Bconst.mat')
 load('Fv.mat')
 load('u_out.mat')
@@ -20,13 +20,14 @@ cd ..
 %% Inizializzazione
 Tf = 1/500; Ff = 1/Tf; T = Tf;
 %81576
+
 num_el = size(Traj,1);
 t = 0:Tf:(num_el*Tf-Tf);
 % w = 1;
 % joint = 10*sin(w*t);
 % traj = [joint;joint;joint;joint;joint;joint;joint]';
 
-dtraj = sgolayfilt(diff(Traj)*Ff,1,17);
+dtraj = sgolayfilt(diff(traj)*Ff,1,17);
 ddtraj = sgolayfilt(diff(dtraj)*Ff,1,17);
 dtraj = dtraj(2:end,:);
 traj = traj(2:end-1,:);

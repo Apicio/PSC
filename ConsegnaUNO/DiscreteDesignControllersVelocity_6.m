@@ -35,8 +35,6 @@ KCV = diag([rlkcv(1)*(2*W(1,1)*Z(1,1))/(KM(1,1)*KTV(1,1)),...
             rlkcv(6)*(2*W(6,6)*Z(6,6))/(KM(6,6)*KTV(6,6))]);   %Guadagno controllore in velocità
 TCV = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]);  %Costante di tempo controllore
 XR = KCP*KTP*KCV;
-save('W_transVelocity.mat','W');
-cd ..
 s = tf('s');
 %% Progettazione
 C = (KCP*KCV/s)*(s*TCV+eye(6,6));
@@ -44,6 +42,8 @@ H = KTP*(eye(6,6) + (s*KTV)/(KCP*KTP));
 P = KM/(s*(eye(6,6)+s*TM));
 F = C*P*H;
 W = minreal((H^-1)/(eye(6,6)+F^-1));
+save('W_transVelocity.mat','W');
+cd ..
 % Digitale
 Fd = minreal(F*exp(-s*Td/2));
 Fd = Fd*ones(6,1);

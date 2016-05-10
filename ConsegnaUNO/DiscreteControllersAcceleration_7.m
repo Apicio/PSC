@@ -48,8 +48,7 @@ TCA = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]); % Costante di tem
 save('Z.mat','Z'), save('W.mat','W'), save('XR.mat','XR'), save('TCA.mat','TCA');
 save('KTV.mat','KTV'), save('KTP.mat','KTP'), save('KTA.mat','KTA');
 save('KCP.mat','KCP'),save('KCV.mat','KCV'),  save('KCA.mat','KCA');
-save('KM.mat','KM'), save('W_transAccel.mat','W');
-cd ..
+save('KM.mat','KM');
 s = tf('s');
 %% Definizione controllori %%
 G = KM/((eye(6,6)+KM*KCA*KTA)*(eye(6,6)+s*TM*((eye(6,6)+KM*KCA*KTA*(TCA/TM))/(eye(6,6)+KM*KCA*KTA))));
@@ -58,6 +57,8 @@ C = KCP*KCV*KCA*((eye(6,6)+s*TCA)/(s));
 H = KTP*(eye(6,6) + (s*KTV)/(KCP*KTP));
 F = C*P*H;
 W = minreal((H^-1)/(eye(6,6)+F^-1));
+save('W_transAccel.mat','W');
+cd ..
 % Digitale
 Fd = minreal(F*exp(-s*Td/2));
 Fd = Fd*ones(6,1);

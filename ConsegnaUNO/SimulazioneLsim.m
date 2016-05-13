@@ -36,11 +36,16 @@ Traj = [tt; Traj];
 %% Processo Reale
 I = Kr^-1*Bconst*Kr^-1;
 FM = Kr^-1*Fv*Kr^-1;
-P_Mecc_Num = inv(I).*s^-1;
-P_Mecc = P_Mecc_Num/(eye(6,6)+FM*P_Mecc_Num);
-P_Ele_Num = (s*La+Ra)^-1*Kt*P_Mecc;
-P_Ele_Mecc = P_Ele_Num/(eye(6,6) + Kv*P_Ele_Num);
-P_Real = P_Ele_Mecc.*s^-1;
+% P_Mecc_Num = inv(I).*s^-1;
+% P_Mecc = P_Mecc_Num/(eye(6,6)+FM*P_Mecc_Num);
+% P_Ele_Num = (s*La+Ra)^-1*Kt*P_Mecc;
+% P_Ele_Mecc = P_Ele_Num/(eye(6,6) + Kv*P_Ele_Num);
+% P_Real = P_Ele_Mecc.*s^-1;
+P_Mecc_Num = I^-1.*(s^-1);
+P_Mecc = P_Mecc_Num*((eye(6,6)+P_Mecc_Num*FM)^-1);
+P_Ele_Num = (s.*La+Ra)^-1*Kt*P_Mecc;
+P_Ele_Mecc = P_Ele_Num*((eye(6,6) + P_Ele_Num*Kv)^-1);
+P_Real = P_Ele_Mecc.*(s^-1);
 P_Acc = P_Ele_Mecc/(eye(6,6) + P_Ele_Mecc*KTA*KCA*(eye(6,6)+s*TCA));
 P_Acc = P_Acc.*s^-1;
 %% Verifica di Robustezza

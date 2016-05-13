@@ -34,6 +34,7 @@ KCV = diag([rlkcv(1)*(2*W(1,1)*Z(1,1))/(KM(1,1)*KTV(1,1)),...
             rlkcv(5)*(2*W(5,5)*Z(5,5))/(KM(5,5)*KTV(5,5)),...
             rlkcv(6)*(2*W(6,6)*Z(6,6))/(KM(6,6)*KTV(6,6))]);   %Guadagno controllore in velocità
 TCV = diag([TM(1,1) TM(2,2) TM(3,3) TM(4,4) TM(5,5) TM(6,6)]);  %Costante di tempo controllore
+
 XR = KCP*KTP*KCV;
 s = tf('s');
 %% Progettazione

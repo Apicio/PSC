@@ -21,14 +21,16 @@ cd ..
 Tf = 1/500; Ff = 1/Tf; T = Tf;
 %81576
 
-num_el = size(Traj,1);
-t = 0:Tf:(num_el*Tf-Tf);
+% num_el = size(Traj,1);
+% t = 0:Tf:(num_el*Tf-Tf);
 % w = 1;
 % joint = 10*sin(w*t);
 % traj = [joint;joint;joint;joint;joint;joint;joint]';
-
-dtraj = sgolayfilt(diff(traj)*Ff,1,17);
-ddtraj = sgolayfilt(diff(dtraj)*Ff,1,17);
+% 
+% dtraj = sgolayfilt(diff(traj)*Ff,1,17);
+% ddtraj = sgolayfilt(diff(dtraj)*Ff,1,17);
+dtraj = diff(traj)*Ff;
+ddtraj = diff(dtraj)*Ff;
 dtraj = dtraj(2:end,:);
 traj = traj(2:end-1,:);
 % 
@@ -56,14 +58,14 @@ FM = Kr^-1*Fv*Kr^-1;
 
 dist = [t', u];
 
-s = tf('s');
-C = KCA*(TCA*s+eye(6,6))/s
-Cd = c2d(C,Tf,'zoh')*ones(6,1)
-
-I = Kr^-1*Bconst*Kr^-1;
-TM = I*Ra*Kt^-1*Kv^-1;
-P = KM(1,1)/(s*(TM(1,1)*s+1))
-% Kp + Ki/s = (s*Kp+Ki)/s
+% s = tf('s');
+% C = KCA*(TCA*s+eye(6,6))/s
+% Cd = c2d(C,Tf,'zoh')*ones(6,1)
+% 
+% I = Kr^-1*Bconst*Kr^-1;
+% TM = I*Ra*Kt^-1*Kv^-1;
+% P = KM(1,1)/(s*(TM(1,1)*s+1))
+% % Kp + Ki/s = (s*Kp+Ki)/s
 % Ki*(1+s*(Kp/Ki))/s
 % Ki = Kca
 % Kp/Ki = Tca -> Kp = Tca*Ki

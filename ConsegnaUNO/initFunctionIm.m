@@ -64,6 +64,7 @@ FM = Kr^-1*Fv*Kr^-1;
 dist = [t', u];
 
 s = tf('s');
+z = tf('z');
 Cv1 = KCP*KCV*TCV+KCV*KTV*KTP^-1;
 Cv2 = KCP*KCV*s^-1;
 Cv3 = KCV*TCV*KTV*KTP^-1.*s;
@@ -76,8 +77,9 @@ for i=1:6
  gI(i) = tmp.Ki;
  gD(i) = tmp.Kd;
  Cvr(i) = gP(i)+gI(i)/s + gD(i)*(N/(1+N/s));
+ Cvd(i) = gP(i)+Tf*gI(i)/(z-1) + gD(i)*(N/(1+Tf*N/(z-1)));
 end
-Cd = c2d(Cvr,Tf,'tutsin');
+% Cd = c2d(Cvr,Tf,'tutsin');
 
 
 

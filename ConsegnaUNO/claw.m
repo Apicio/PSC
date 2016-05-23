@@ -8,6 +8,7 @@ persistent uOldOld;
 persistent e;
 persistent eOld;
 persistent eOldOld;
+
 if isempty(uOld)
    uOld = 0;
 end
@@ -26,11 +27,12 @@ end
 if isempty(u_save)
    u_save = 0;
 end
+
 uOldOld = uOld;
 uOld = u_save;
 eOldOld = eOld;
 eOld = e;
-e = qd-qc;
+e = qd - qc;
 u = 1.818*uOld - 0.8182*uOldOld + 9969*e - 16860*eOld + 7130*eOldOld;
 u_save = u;
 

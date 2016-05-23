@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.970"
+    ComputedModelVersion    "1.975"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -70,19 +70,19 @@ Model {
 	  $ObjectID		  6
 	  IsActive		  [0]
 	  ViewObjType		  "SimulinkSubsys"
-	  LoadSaveID		  "37"
+	  LoadSaveID		  "409"
 	  Extents		  [1886.0, 878.0]
-	  ZoomFactor		  [0.8]
-	  Offset		  [-434.96808963049011, -10.780958683647214]
+	  ZoomFactor		  [1.11]
+	  Offset		  [0.0, 0.0]
 	}
 	Object {
 	  $ObjectID		  7
 	  IsActive		  [1]
-	  ViewObjType		  "SimulinkSubsys"
-	  LoadSaveID		  "379"
+	  ViewObjType		  "SimulinkTopLevel"
+	  LoadSaveID		  "0"
 	  Extents		  [1886.0, 878.0]
-	  ZoomFactor		  [1.2230215827338129]
-	  Offset		  [-97.416176470588312, 83.552941176471109]
+	  ZoomFactor		  [1.1020166073546855]
+	  Offset		  [-23.772043521906056, -19.360602798708328]
 	}
 	PropName		"EditorsInfo"
       }
@@ -94,9 +94,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Gianluigi"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 23 21:25:44 2016"
-  RTWModifiedTimeStamp	  385939543
-  ModelVersionFormat	  "1.%<AutoIncrement:970>"
+  LastModifiedDate	  "Mon May 23 22:06:56 2016"
+  RTWModifiedTimeStamp	  385942012
+  ModelVersionFormat	  "1.%<AutoIncrement:975>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1006,6 +1006,12 @@ Model {
       InitialOutput	      "[]"
     }
     Block {
+      BlockType		      S-Function
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+    }
+    Block {
       BlockType		      Scope
       DefaultConfigurationName "Simulink.scopes.TimeScopeBlockCfg"
       NumInputPorts	      "1"
@@ -1060,6 +1066,9 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Terminator
+    }
+    Block {
       BlockType		      ToWorkspace
       VariableName	      "simulink_output"
       MaxDataPoints	      "1000"
@@ -1091,7 +1100,7 @@ Model {
   System {
     Name		    "ImSimulazione"
     Location		    [-8, -8, 1928, 1048]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1102,14 +1111,14 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "110"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1366"
+    SIDHighWatermark	    "1371"
     Block {
       BlockType		      Clock
       Name		      "Clock"
       SID		      "1"
-      Position		      [1515, 25, 1535, 45]
+      Position		      [1140, 40, 1160, 60]
       ZOrder		      -1
     }
     Block {
@@ -1141,7 +1150,7 @@ Model {
       Name		      "Coppie1"
       SID		      "3"
       Ports		      [1]
-      Position		      [1590, 21, 1675, 49]
+      Position		      [1215, 36, 1300, 64]
       ZOrder		      -3
       ShowName		      off
       VariableName	      "t"
@@ -1149,11 +1158,22 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Demux
+      Name		      "Demux"
+      SID		      "1371"
+      Ports		      [1, 6]
+      Position		      [1035, 275, 1045, 405]
+      ZOrder		      248
+      ShowName		      off
+      Outputs		      "6"
+      DisplayOption	      "bar"
+    }
+    Block {
       BlockType		      Display
       Name		      "Display"
       SID		      "4"
       Ports		      [1]
-      Position		      [1590, 55, 1675, 85]
+      Position		      [1215, 70, 1300, 100]
       ZOrder		      -5
       Decimation	      "1"
     }
@@ -1320,7 +1340,7 @@ Model {
       Name		      "Scope4"
       SID		      "1129"
       Ports		      [1]
-      Position		      [845, 524, 875, 556]
+      Position		      [1135, 374, 1165, 406]
       ZOrder		      238
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -1351,7 +1371,7 @@ Model {
       Name		      "Scope5"
       SID		      "1130"
       Ports		      [1]
-      Position		      [950, 584, 980, 616]
+      Position		      [1135, 529, 1165, 561]
       ZOrder		      239
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -1380,7 +1400,7 @@ Model {
       Name		      "Scope6"
       SID		      "1131"
       Ports		      [1]
-      Position		      [1050, 644, 1080, 676]
+      Position		      [1135, 614, 1165, 646]
       ZOrder		      240
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -1483,7 +1503,7 @@ Model {
       System {
 	Name			"Subsystem3"
 	Location		[-8, -8, 1928, 1048]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3452,7 +3472,7 @@ Model {
 	  System {
 	    Name		    "Schema Motore 2"
 	    Location		    [-8, -8, 1928, 1048]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -6272,7 +6292,7 @@ Model {
 	  System {
 	    Name		    "Schema Motore 5"
 	    Location		    [-8, -8, 1928, 1048]
-	    Open		    off
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -7312,6 +7332,119 @@ Model {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      SubSystem
+	      Name		      "MATLAB Function"
+	      SID		      "1369"
+	      Ports		      [1, 1]
+	      Position		      [625, 247, 695, 293]
+	      ZOrder		      142
+	      LibraryVersion	      "1.32"
+	      ErrorFcn		      "Stateflow.Translate.translate"
+	      PermitHierarchicalResolution "ExplicitOnly"
+	      TreatAsAtomicUnit	      on
+	      RequestExecContextInheritance off
+	      SFBlockType	      "MATLAB Function"
+	      Variant		      off
+	      System {
+		Name			"MATLAB Function"
+		Location		[223, 338, 826, 833]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		SIDHighWatermark	"18"
+		Block {
+		  BlockType		  Inport
+		  Name			  "u"
+		  SID			  "1369::1"
+		  Position		  [20, 101, 40, 119]
+		  ZOrder		  -1
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Demux
+		  Name			  " Demux "
+		  SID			  "1369::17"
+		  Ports			  [1, 1]
+		  Position		  [270, 230, 320, 270]
+		  ZOrder		  8
+		  Outputs		  "1"
+		}
+		Block {
+		  BlockType		  S-Function
+		  Name			  " SFunction "
+		  SID			  "1369::16"
+		  Tag			  "Stateflow S-Function ImSimulazione 2"
+		  Ports			  [1, 2]
+		  Position		  [180, 100, 230, 160]
+		  ZOrder		  7
+		  FunctionName		  "sf_sfun"
+		  PortCounts		  "[1 2]"
+		  SFunctionDeploymentMode off
+		  EnableBusSupport	  on
+		  Port {
+		    PortNumber		    2
+		    Name		    "y"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Terminator
+		  Name			  " Terminator "
+		  SID			  "1369::18"
+		  Position		  [460, 241, 480, 259]
+		  ZOrder		  9
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "y"
+		  SID			  "1369::5"
+		  Position		  [460, 101, 480, 119]
+		  ZOrder		  -5
+		  IconDisplay		  "Port number"
+		}
+		Line {
+		  ZOrder		  5
+		  SrcBlock		  "u"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "y"
+		  ZOrder		  6
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  2
+		  DstBlock		  "y"
+		  DstPort		  1
+		}
+		Line {
+		  ZOrder		  7
+		  SrcBlock		  " Demux "
+		  SrcPort		  1
+		  DstBlock		  " Terminator "
+		  DstPort		  1
+		}
+		Line {
+		  ZOrder		  8
+		  SrcBlock		  " SFunction "
+		  SrcPort		  1
+		  DstBlock		  " Demux "
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
 	      BlockType		      ManualSwitch
 	      Name		      "Manual Switch"
 	      SID		      "1305"
@@ -7339,6 +7472,14 @@ Model {
 	      SID		      "1307"
 	      Position		      [250, 242, 280, 278]
 	      ZOrder		      134
+	    }
+	    Block {
+	      BlockType		      ManualSwitch
+	      Name		      "Manual Switch3"
+	      SID		      "1367"
+	      Position		      [800, 242, 830, 278]
+	      ZOrder		      140
+	      CurrentSetting	      "0"
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -7831,11 +7972,22 @@ Model {
 	      }
 	    }
 	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      SID		      "1368"
+	      Ports		      [2, 1]
+	      Position		      [530, 251, 535, 289]
+	      ZOrder		      141
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
 	      BlockType		      Reference
 	      Name		      "PID Controller"
 	      SID		      "1366"
 	      Ports		      [1, 1]
-	      Position		      [565, 242, 605, 278]
+	      Position		      [595, 187, 635, 223]
 	      ZOrder		      139
 	      LibraryVersion	      "1.386"
 	      SourceBlock	      "simulink/Continuous/PID Controller"
@@ -8032,9 +8184,18 @@ Model {
 	      ZOrder		      228
 	      SrcBlock		      "KTP"
 	      SrcPort		      1
-	      Points		      [-385, 0]
-	      DstBlock		      "Sum"
-	      DstPort		      2
+	      Points		      [-385, 0; 0, -271]
+	      Branch {
+		ZOrder			296
+		Points			[101, 0; 0, -9]
+		DstBlock		"Mux"
+		DstPort			2
+	      }
+	      Branch {
+		ZOrder			295
+		DstBlock		"Sum"
+		DstPort			2
+	      }
 	    }
 	    Line {
 	      ZOrder		      233
@@ -8112,8 +8273,18 @@ Model {
 	      ZOrder		      253
 	      SrcBlock		      "Manual Switch2"
 	      SrcPort		      1
-	      DstBlock		      "Sum"
-	      DstPort		      1
+	      Points		      [31, 0]
+	      Branch {
+		ZOrder			294
+		Points			[0, -21; 144, 0; 0, 21]
+		DstBlock		"Mux"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			293
+		DstBlock		"Sum"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      ZOrder		      254
@@ -8142,14 +8313,37 @@ Model {
 	      ZOrder		      290
 	      SrcBlock		      "Sum"
 	      SrcPort		      1
+	      Points		      [24, 0; 0, -55]
 	      DstBlock		      "PID Controller"
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      289
+	      ZOrder		      291
 	      SrcBlock		      "PID Controller"
 	      SrcPort		      1
+	      Points		      [117, 0; 0, 45]
+	      DstBlock		      "Manual Switch3"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      292
+	      SrcBlock		      "Manual Switch3"
+	      SrcPort		      1
 	      DstBlock		      "Modello Motore"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      300
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "MATLAB Function"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      299
+	      SrcBlock		      "MATLAB Function"
+	      SrcPort		      1
+	      DstBlock		      "Manual Switch3"
 	      DstPort		      2
 	    }
 	  }
@@ -9270,15 +9464,15 @@ Model {
       ZOrder		      58
       SrcBlock		      "Sum"
       SrcPort		      1
-      Points		      [206, 0]
+      Points		      [179, 0]
       Branch {
-	ZOrder			91
-	Points			[0, -60]
-	DstBlock		"Scope4"
+	ZOrder			196
+	Points			[0, -260]
+	DstBlock		"Demux"
 	DstPort			1
       }
       Branch {
-	ZOrder			90
+	ZOrder			195
 	DstBlock		"To Workspace"
 	DstPort			1
       }
@@ -9290,7 +9484,7 @@ Model {
       Points		      [232, 0]
       Branch {
 	ZOrder			93
-	Points			[0, -60]
+	Points			[0, -115]
 	DstBlock		"Scope5"
 	DstPort			1
       }
@@ -9307,7 +9501,7 @@ Model {
       Points		      [244, 0]
       Branch {
 	ZOrder			95
-	Points			[0, -45]
+	Points			[0, -75]
 	DstBlock		"Scope6"
 	DstPort			1
       }
@@ -9316,6 +9510,13 @@ Model {
 	DstBlock		"To Workspace5"
 	DstPort			1
       }
+    }
+    Line {
+      ZOrder		      198
+      SrcBlock		      "Demux"
+      SrcPort		      6
+      DstBlock		      "Scope4"
+      DstPort		      1
     }
     Annotation {
       SID		      "526"
@@ -9375,20 +9576,153 @@ Stateflow {
     name		    "ImSimulazione"
     created		    "12-Aug-2007 10:57:10"
     isLibrary		    0
-    firstTarget		    2
+    firstTarget		    9
+    debug {
+    }
     sfVersion		    80000009
   }
-  target {
+  chart {
     id			    2
+    name		    "Subsystem3/Schema Motore 6/MATLAB Function"
+    windowPosition	    [422 539.941 189 413]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 3600 1200 1.180555555555556]
+    treeNode		    [0 3 0 0]
+    firstTransition	    7
+    firstJunction	    6
+    viewObj		    2
+    visible		    1
+    machine		    1
+    subviewS {
+    }
+    ssIdHighWaterMark	    5
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    4
+    chartFileNumber	    2
+    disableImplicitCasting  1
+    eml {
+      name		      "fcn"
+    }
+  }
+  state {
+    id			    3
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    2
+    treeNode		    [2 0 0 0]
+    superState		    SUBCHART
+    subviewer		    2
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function y = fcn(u)\nqd = u(1);\nqc = u(2);\n\npersistent y_save;\npersistent uOld;\npersistent u"
+      "OldOld;\npersistent e;\npersistent eOld;\npersistent eOldOld;\n\nif isempty(uOld)\n   uOld = 0;\nend\nif isempty"
+      "(uOldOld)\n   uOldOld = 0;\nend\nif isempty(e)\n   e = 0;\nend\nif isempty(eOld)\n   eOld = 0;\nend\nif isempty("
+      "eOldOld)\n   eOldOld = 0;\nend\nif isempty(y_save)\n   y_save = 0;\nend\n\nuOldOld = uOld;\nuOld = y_save;\neOld"
+      "Old = eOld;\neOld = e;\ne = qd - qc;\ny = 1.818*uOld - 0.8182*uOldOld + 9969*e - 16860*eOld + 7130*eOldOld;\ny_s"
+      "ave = y;"
+      editorLayout	      "100 M4x1[10 5 700 500]"
+    }
+  }
+  data {
+    id			    4
+    ssIdNumber		    4
+    name		    "u"
+    linkNode		    [2 0 5]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      unit {
+	name			"inherit"
+      }
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    5
+    ssIdNumber		    5
+    name		    "y"
+    linkNode		    [2 4 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+      unit {
+	name			"inherit"
+      }
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  junction {
+    id			    6
+    position		    [23.5747 49.5747 7]
+    chart		    2
+    linkNode		    [2 0 0]
+    subviewer		    2
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    7
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [28.125 13.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      6
+      intersection	      [1 0 -1 0 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    2
+    linkNode		    [2 0 0]
+    dataLimits		    [21.175 25.975 14.625 42.575]
+    subviewer		    2
+    drawStyle		    SMART
+    slide {
+      sticky		      BOTH_STICK
+    }
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  instance {
+    id			    8
+    name		    "Subsystem3/Schema Motore 6/MATLAB Function"
+    machine		    1
+    chart		    2
+  }
+  target {
+    id			    9
     name		    "sfun"
     codeFlags		    ""
     machine		    1
-    linkNode		    [1 0 3]
+    linkNode		    [1 0 10]
   }
   target {
-    id			    3
+    id			    10
     name		    "rtw"
     machine		    1
-    linkNode		    [1 2 0]
+    linkNode		    [1 9 0]
   }
 }

@@ -1,20 +1,10 @@
 clc; clearvars;
 cd utilis
-load('KCP.mat')
-load('KCV.mat')
-load('KTA.mat')
-load('KTP.mat')
-load('KTV.mat')
-load('TCA.mat')
-load('W.mat')
-load('XR.mat')
 load('Z.mat')
-load('KCA.mat')
 load('KM.mat')
 load('traj.mat'); traj = Traj; 
 load('Bconst.mat')
 load('Fv.mat')
-load('u_out.mat')
 load('KCPv.mat') % Controllo
 load('KCVv.mat') % Controllo
 load('KTPv.mat') % Controllo
@@ -24,8 +14,6 @@ ParametriMotori
 cd ..
 %% Inizializzazione
 Tf = 1/500; Ff = 1/Tf; T = Tf;
-%81576
-
 % num_el = size(Traj,1);
 % t = 0:Tf:(num_el*Tf-Tf);
 % w = 1;
@@ -60,9 +48,6 @@ ddtraj = [t', ddtraj];
 Im = Kr^-1*Bconst*Kr^-1;
 
 FM = Kr^-1*Fv*Kr^-1;
-
-dist = [t', u];
-
 s = tf('s');
 z = tf('z');
 Cv1 = KCP*KCV*TCV+KCV*KTV*KTP^-1;
@@ -81,17 +66,34 @@ for i=1:6
 end
 % Cd = c2d(Cvr,Tf,'tutsin');
 
+cd utilis 
+load('KCP.mat') % Controllo
+load('KCV.mat') % Controllo
+load('KTA.mat') % Controllo
+load('KTP.mat') % Controllo
+load('KTV.mat') % Controllo
+load('TCA.mat') % Controllo
+load('TCV.mat') % Controllo
+load('KCA.mat') % Controllo
+cd ..
+Ca1 = KCP*KCV*KCA*TCA+KCV*KTV*KCA*KTP^-1;
+Ca2 = KCP*KCV*KCA*s^-1;
+Ca3 = (KCV*KTV*KCA*TCA+KCA*KTA)*KTP^-1*s;
+Ca4 = KCA*TCA*KTA*KTP^-1*s;
+Ca5 = eye(6,6)*s;
+Ca = Ca1 + Ca2 + Ca3 + Ca4;
 
-
-% s = tf('s');
-% C = KCA*(TCA*s+eye(6,6))/s
-% Cd = c2d(C,Tf,'zoh')*ones(6,1)
-% 
-% I = Kr^-1*Bconst*Kr^-1;
-% TM = I*Ra*Kt^-1*Kv^-1;
-% P = KM(1,1)/(s*(TM(1,1)*s+1))
-% % Kp + Ki/s = (s*Kp+Ki)/s
-% Ki*(1+s*(Kp/Ki))/s
-% Ki = Kca
-% Kp/Ki = Tca -> Kp = Tca*Ki
+N = 100;
+for i=1:6
+ tmp1 = pid(Ca1(i,i) + Ca2(i,i) + Ca3(i,i));
+ tmp2 = pid(Ca4(i,i));
+ tmp3 = pid(Ca5(i,i));
+ 
+ gaP(i) = tmp1.Kp;
+ gaI(i) = tmp1.Ki;
+ gaD(i) = tmp1.Kd;
+ 
+ Car(i) = gaP(i)+gaI(i)/s + gaD(i)*(N/(1+N/s));
+ Cad(i) = gaP(i)+((Tf*gaI(i))/(z-1)) + (gaD(i)*((N)/(1+((N*Tf)/(z-1)))));
+end
 

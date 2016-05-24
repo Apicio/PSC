@@ -77,7 +77,7 @@ for i=1:6
  gI(i) = tmp.Ki;
  gD(i) = tmp.Kd;
  Cvr(i) = gP(i)+gI(i)/s + gD(i)*(N/(1+N/s));
- Cvd(i) = gP(i)+Tf*gI(i)/(z-1) + gD(i)*(N/(1+Tf*N/(z-1)));
+ Cvd(i) = gP(i)+((Tf*gI(i))/(z-1)) + (gD(i)*((N)/(1+((N*Tf)/(z-1)))));
 end
 % Cd = c2d(Cvr,Tf,'tutsin');
 

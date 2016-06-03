@@ -1,0 +1,55 @@
+Giunto4 
+B38D4P-07012
+N = 5000 rpm		Giri al minuto
+Mo = 0.35 Nm 		Coppia di Stallo
+Mn = 0.31 Nm 	Coppia nominale
+Break = 24 Vdc
+Io = 0.69 A 65k		Corrente di stallo
+Kt = Mo/Io = 0.35/0.69 = 0.51
+I = 0.34 Adc
+2P = 8 			Numero di poli
+Vi = 154 Vms
+Ra = Vi/Io = 154/0.69 = 223.18
+Encoder Stegmann SRS50-HGV0-K01
+
+Giunto3 
+B63G5P-02383
+N = 4500 rpm
+Mo = 3.5 Nm
+Mn = 2.7 Nm
+Break = 24 Vdc
+Io = 5 A
+Kt = Mo/Io = 3.5/5 = 0.7
+I = 0.65 Adc
+2P = 8
+Vi = 194 Vms
+Ra = Vi/Io = 194/5 = 38.8
+Encoder Stegmann SRS50-HGV0-K01
+
+Giunto2 
+B63G5P-02383
+N = 4500 rpm
+Mo = 5 Nm
+Mn = 3.75 Nm
+Break = 24 Vdc
+Io = 4.8A
+Kt = Mo/Io = 5/4.8 = 1.04
+I = 0.65 Adc
+2P = 8
+Vi = 283 Vms
+Ra = Vi/Io = 58.95
+Encoder Stegmann SRS50-HGV0-K01
+
+Giunto1
+B63G5P-02383
+N = 4500 rpm
+Mo = 3.5 Nm
+Mn = 2.7 Nm
+Break = 24 Vdc
+Io = 5 A
+Kt = Mo/Io = 3.5/5 = 0.7
+I = 0.65 Adc
+2P = 8
+Vi = 194 Vms
+Ra = Vi/Io = 194/5 = 38.8
+Encoder Stegmann SRS50-HGV0-K01

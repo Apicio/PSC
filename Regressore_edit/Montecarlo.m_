@@ -1,0 +1,36 @@
+clc; clear all; close all;
+N = 75;
+% Dichiarazione funzione di costo da minimizzare. 
+% Input rappresenta il parametro rispetto a cui minimizzare
+jointLimit
+
+cost = @(input)costFunctional(input(1:6,:), input(7:12,:), input(13:18,:), N);
+limiti_giunto_inf = [-2.9671   lim(1,1)    lim(1,2)    -3.6652    -2.2689    -43.9823].*0.9; %m m radx6
+limiti_giunto_sup = [2.9671    lim(2,1)    lim(2,2)     3.6652     2.2689     50.2655].*0.9; %m m radx6
+dqmaxcomau = [2.433 2.7925 2.9671 7.8534 6.5443 9.5986].*0.9; %velocita' massime ai giunti m/s m/s rad/sx6
+ddqmaxcomau = [20 20 20 35 45 45].*0.9; %accelerazioni massime ai giunti m/s^2 m/s^2 rad/s^2x6
+
+limInf = ones(18,N);
+limSup = ones(18,N);
+
+for i=1:N
+    limInf(1:6,i) = limiti_giunto_inf';
+    limInf(7:12,i) = -dqmaxcomau';
+    limInf(13:18,i) = -ddqmaxcomau';
+    limSup(1:6,i) = limiti_giunto_sup';
+    limSup(7:12,i) =  dqmaxcomau';
+    limSup(13:18,i) = ddqmaxcomau';
+end
+
+options = optimset('Display', 'iter', 'MaxFunEvals', 1,'MaxIter', 1);
+min_s = [];
+parfor i=1:8000
+    r = 10*rand(1);
+    input = rand(18,N)*r;
+    min_v = fmincon(cost, input,[],[],[],[],limInf,limSup,[],options);
+    curr = costFunctional(min_v(1:6,1:N), min_v(7:12,1:N), min_v(13:18,1:N), N);
+    if(curr < 900)
+        min_s = min_v;
+        min_s
+    end 
+end

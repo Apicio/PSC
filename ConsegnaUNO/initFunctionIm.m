@@ -64,36 +64,41 @@ for i=1:6
  Cvr(i) = gP(i)+gI(i)/s + gD(i)*(N/(1+N/s));
  Cvd(i) = gP(i)+((Tf*gI(i))/(z-1)) + (gD(i)*((N)/(1+((N*Tf)/(z-1)))));
 end
-% Cd = c2d(Cvr,Tf,'tutsin');
+Cd = c2d(Cvr,Tf,'tutsin'); % Usata per il controllore unico CPP
 
-cd utilis 
-load('KCP.mat') % Controllo
-load('KCV.mat') % Controllo
-load('KTA.mat') % Controllo
-load('KTP.mat') % Controllo
-load('KTV.mat') % Controllo
-load('TCA.mat') % Controllo
-load('TCV.mat') % Controllo
-load('KCA.mat') % Controllo
-cd ..
-Ca1 = KCP*KCV*KCA*TCA+KCV*KTV*KCA*KTP^-1;
-Ca2 = KCP*KCV*KCA*s^-1;
-Ca3 = (KCV*KTV*KCA*TCA+KCA*KTA)*KTP^-1*s;
-Ca4 = KCA*TCA*KTA*KTP^-1*s;
-Ca5 = eye(6,6)*s;
-Ca = Ca1 + Ca2 + Ca3 + Ca4;
 
-N = 100;
-for i=1:6
- tmp1 = pid(Ca1(i,i) + Ca2(i,i) + Ca3(i,i));
- tmp2 = pid(Ca4(i,i));
- tmp3 = pid(Ca5(i,i));
- 
- gaP(i) = tmp1.Kp;
- gaI(i) = tmp1.Ki;
- gaD(i) = tmp1.Kd;
- 
- Car(i) = gaP(i)+gaI(i)/s + gaD(i)*(N/(1+N/s));
- Cad(i) = gaP(i)+((Tf*gaI(i))/(z-1)) + (gaD(i)*((N)/(1+((N*Tf)/(z-1)))));
-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% cd utilis 
+% load('KCP.mat') % Controllo
+% load('KCV.mat') % Controllo
+% load('KTA.mat') % Controllo
+% load('KTP.mat') % Controllo
+% load('KTV.mat') % Controllo
+% load('TCA.mat') % Controllo
+% load('TCV.mat') % Controllo
+% load('KCA.mat') % Controllo
+% cd ..
+% Ca1 = 1+KCP*KCV*KCA*TCA+KCV*KTV*KCA*KTP^-1;
+% Ca2 = KCP*KCV*KCA*s^-1;
+% Ca3 = (KCV*KTV*KCA*TCA+KCA*KTA)*KTP^-1*s;
+% Ca4 = KCA*TCA*KTA*KTP^-1*s^2;
+% Ca = Ca1 + Ca2 + Ca3 + Ca4;
+% Cd = c2d(Ca,Tf,'tutsin');
 

@@ -33,7 +33,7 @@ uOld = u_save;
 eOldOld = eOld;
 eOld = e;
 e = qd - qc;
-u = 1.818*uOld - 0.8182*uOldOld + 9969*e - 16860*eOld + 7130*eOldOld; 
+u = 1.818*uOld - 0.8182*uOldOld + 10080*e - 17090*eOld + 7236*eOldOld;
 u_save = u;
 
 end
